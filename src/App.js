@@ -1,21 +1,17 @@
 import React from 'react';
-import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import { BrowserRouter } from 'react-router-dom';
+import GeneralProvider from './context/GeneralProvider';
+import Routes from './routes/Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-      <p>Grupo 20</p>
-    </div>
+    <BrowserRouter>
+      <GeneralProvider>
+        <Routes />
+      </GeneralProvider>
+    </BrowserRouter>
   );
 }
 
