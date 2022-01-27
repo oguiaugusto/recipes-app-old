@@ -14,6 +14,7 @@ function App() {
       >
         Glass
       </object>
+      <p>Grupo 20</p>
     </div>
   );
 }
