@@ -1,9 +1,10 @@
 import React from 'react';
-import { Footer } from '../components';
+import { Header, Footer } from '../components';
 
 export default function Explore() {
   return (
     <div>
+      <Header />
       <h1>Explore</h1>
       <Footer />
     </div>
