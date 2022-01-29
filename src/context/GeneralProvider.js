@@ -9,6 +9,12 @@ export default function GeneralProvider({ children }) {
     password: '',
   });
 
+  const [foods, setFoods] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+
+  const [foodCategories, setFoodCategories] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
+
   const handleUser = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
@@ -23,6 +29,16 @@ export default function GeneralProvider({ children }) {
     user,
     handleUser,
     handleJoin,
+
+    foods,
+    setFoods,
+    drinks,
+    setDrinks,
+
+    foodCategories,
+    setFoodCategories,
+    drinkCategories,
+    setDrinkCategories,
   };
 
   return (
