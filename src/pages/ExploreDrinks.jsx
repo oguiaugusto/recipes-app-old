@@ -1,11 +1,12 @@
 import React from 'react';
-import Header from '../../components/Header';
+import { Header, Footer } from '../components';
 
 export default function ExploreDrinks() {
   return (
     <div>
       <Header />
-      <h1>explore drinks</h1>
+      <h1>Explore Drinks</h1>
+      <Footer />
     </div>
   );
 }
