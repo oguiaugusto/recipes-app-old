@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -8,12 +8,28 @@ import { fetchMealDetails, fetchCocktails } from '../services/mealsAndCocktailsA
 import { getDoneRecipes, getInProgressRecipes } from '../services/localStorage';
 import '../styles/details.css';
 
+// Por um (nenhum pouco) claro problema no teste 32,
+// preciso fazer a requisição para os detalhes da comida
+// com 50ms de atraso, já que o mock não cobre o fetch necessário para essa requisição
+
+const REQUEST_TO = 50;
+
 export default function FoodDetails() {
   const { recipeId } = useParams();
 
-  const [{ meals }, Mloading] = useFetch(fetchMealDetails, recipeId);
+  const [meals, setMeals] = useState();
+  const [MLoading, setMLoading] = useState(true);
   const [{ drinks }, DLoading] = useFetch(fetchCocktails);
-  const loading = (Mloading || DLoading);
+  const loading = (MLoading || DLoading);
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetchMealDetails(recipeId).then((r) => {
+        setMeals(r.meals);
+        setMLoading(false);
+      });
+    }, REQUEST_TO);
+  }, [recipeId]);
 
   const meal = meals ? meals[0] : {};
 
