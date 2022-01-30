@@ -1,0 +1,19 @@
+.iframe-container {
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+  width: 90%;
+}
+
+.iframe-container iframe {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/*
+  Source: https://www.youtube.com/watch?v=9YffrCViTVk;
+  Ideia e código de responsividade do iframe retiradas do vídeo acima;
+*/

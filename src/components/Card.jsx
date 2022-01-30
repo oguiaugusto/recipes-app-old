@@ -2,19 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card as C } from 'react-bootstrap';
 
-export default function Card({ thumb, name, index }) {
+export default function Card({
+  width, thumb, name, cardTestId, imgTestId, titleTestId,
+}) {
   return (
-    <C data-testid={ `${index}-recipe-card` } style={ { width: '18rem' } }>
-      <C.Img data-testid={ `${index}-card-img` } variant="top" src={ thumb } />
+    <C data-testid={ cardTestId } style={ { width } }>
+      <C.Img data-testid={ imgTestId } variant="top" src={ thumb } />
       <C.Body>
-        <C.Title data-testid={ `${index}-card-name` }>{name}</C.Title>
+        <C.Title data-testid={ titleTestId }>{name}</C.Title>
       </C.Body>
     </C>
   );
 }
 
 Card.propTypes = {
+  width: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  cardTestId: PropTypes.string,
+  imgTestId: PropTypes.string,
+  titleTestId: PropTypes.string,
+};
+
+Card.defaultProps = {
+  cardTestId: '',
+  imgTestId: '',
+  titleTestId: '',
 };
