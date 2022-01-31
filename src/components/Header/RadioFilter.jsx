@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function RadioFilter({ Value, setValue, name }) {
-  function fixStringForData(string) {
-    // if (string.includes('-')) {
-    //   return string.replace(' ', '-').toLowerCase();
-    // }
-    return string;
-  }
+export default function RadioFilter({ Value, setValue, name, testid }) {
+  // function fixStringForData(string) {
+  //   if (string.includes('-')) {
+  //     return string.replace(' ', '-').toLowerCase();
+  //   }
+  //   return string.toLowerCase();
+  // }
 
   return (
     <label
@@ -19,7 +19,7 @@ export default function RadioFilter({ Value, setValue, name }) {
         id={ `${name}-search-choice` }
         name={ name }
         value={ Value }
-        data-testid={ `${fixStringForData(Value)}-search-radio` }
+        data-testid={ testid }
         onChange={ ({ target: { value } }) => setValue(value) }
       />
     </label>
@@ -30,4 +30,5 @@ RadioFilter.propTypes = {
   Value: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  testid: PropTypes.string.isRequired,
 };
