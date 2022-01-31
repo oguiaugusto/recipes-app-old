@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
 import {
@@ -10,9 +10,13 @@ import {
 import ButtonSearch from './Header/ButtonSearch';
 import InputSearch from './Header/InputSearch';
 import RadioFilter from './Header/RadioFilter';
+import GeneralContext from '../context/GeneralContext';
+import useFetch from '../custom-hooks/useFetch';
+import { fetchMeals, fetchCocktails } from '../services/mealsAndCocktailsAPI';
 
 function handleIsSearch(setFunc, type, pathname, valueSearch) {
   const msgAlert = 'Your search must have only 1 (one) character';
+
   switch (type) {
   case 'Ingredient':
     if (pathname === '/foods') {
@@ -20,7 +24,8 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
         .then((data) => setFunc(data.meals));
     } else {
       fetchDrinkIngredient(valueSearch)
-        .then((data) => setFunc(data.meals));
+        .then((data) => setFunc(data.drinks))
+        .catch(() => setFunc(null));
     }
     break;
   case 'Name':
@@ -29,7 +34,8 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
         .then((data) => setFunc(data.meals));
     } else {
       fetchDrinkName(valueSearch)
-        .then((data) => setFunc(data.meals));
+        .then((data) => setFunc(data.drinks))
+        .catch(() => setFunc(null));
     }
     break;
   case 'First Letter':
@@ -39,7 +45,8 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
         .then((data) => setFunc(data.meals));
     } else {
       fetchDrinkLetter(valueSearch)
-        .then((data) => setFunc(data.meals));
+        .then((data) => setFunc(data.drinks))
+        .catch(() => setFunc(null));
     }
     break;
   default:
@@ -47,28 +54,38 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
   }
 }
 
+function fixTitle(string, separator = ' ') {
+  string = string.split('/').join(' ').trim();
+
+  if (string.split(' ').length > 2) {
+    string = string.split(' ').filter((_e, i) => i !== 1).join(' ');
+  }
+
+  if (string.includes('-')) string = string.split('-').join(' ');
+
+  return string
+    .split(separator)
+    .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+    .join(separator);
+}
+
 export default function Header() {
   const { location: { pathname } } = window;
+  const { setFoods, setDrinks } = useContext(GeneralContext);
 
-  const [foods, setFoods] = useState([]); // Foods é uma array com o retorno da api.
+  const [recipes, setRecipes] = useState([]);
   const [searchValue, setsearchValue] = useState('');
   const [isInput, setIsInput] = useState(false);
   const [typeRadio, setTypeRadio] = useState('');
 
-  function fixTitle(string, separator = ' ') {
-    string = string.split('/').join(' ').trim();
+  const [defaultFoods] = useFetch(fetchMeals);
+  const [defaultDrinks] = useFetch(fetchCocktails);
+  const ALERT = 'Sorry, we haven\'t found any recipes for these filters.';
 
-    if (string.split(' ').length > 2) {
-      string = string.split(' ').filter((_e, i) => i !== 1).join(' ');
-    }
-
-    if (string.includes('-')) string = string.split('-').join(' ');
-
-    return string
-      .split(separator)
-      .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-      .join(separator);
-  }
+  useEffect(() => {
+    if (pathname === '/foods') setFoods(recipes);
+    if (pathname === '/drinks') setDrinks(recipes);
+  }, [pathname, recipes, setDrinks, setFoods]);
 
   const checkPathname = (
     fixTitle(pathname) === 'Foods'
@@ -76,9 +93,23 @@ export default function Header() {
     || fixTitle(pathname) === 'Drinks'
   );
 
-  console.log(foods);
+  if (recipes === null) {
+    if (pathname === '/foods') {
+      setRecipes(defaultFoods.meals);
+    } else {
+      setRecipes(defaultDrinks.drinks);
+    }
+    setsearchValue('');
+    return global.alert(ALERT);
+  }
 
-  fetchDrinkIngredient();
+  if (recipes.length === 1) {
+    return (pathname === '/foods')
+      ? <Redirect to={ `${pathname}/${recipes[0].idMeal}` } /> : (
+        <Redirect to={ `${pathname}/${recipes[0].idDrink}` } />
+      );
+  }
+
   return (
     <header>
       <h1 data-testid="page-title">{fixTitle(pathname)}</h1>
@@ -114,24 +145,27 @@ export default function Header() {
           Value="Ingredient"
           setValue={ setTypeRadio }
           name="search"
+          testid="ingredient-search-radio"
         />
 
         <RadioFilter
           Value="Name"
           setValue={ setTypeRadio }
           name="search"
+          testid="name-search-radio"
         />
 
         <RadioFilter
           Value="First Letter"
           setValue={ setTypeRadio }
           name="search"
+          testid="first-letter-search-radio"
         />
 
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => handleIsSearch(setFoods, typeRadio, pathname, searchValue) }
+          onClick={ () => handleIsSearch(setRecipes, typeRadio, pathname, searchValue) }
         >
           Search
         </button>

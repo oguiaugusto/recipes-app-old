@@ -17,16 +17,16 @@ const baseFetch = (url) => (
 );
 
 // fetch para api de comidas
-const fetchFoodIngredient = (ingredient) => {
-  baseFetch(`${FOODS_INGREDIENT_URL}${ingredient}`);
-};
+const fetchFoodIngredient = (ingredient) => (
+  baseFetch(`${FOODS_INGREDIENT_URL}${ingredient}`)
+);
 const fetchFoodName = (name) => baseFetch(`${FOODS_NAME_URL}${name}`);
 const fetchFoodLetter = (letter) => baseFetch(`${FOODS_LETTER_URL}${letter}`);
 
 // fetch para api de bebidas
-const fetchDrinkIngredient = (ingredient) => {
-  baseFetch(`${DRINKS_INGREDIENT_URL}${ingredient}`);
-};
+const fetchDrinkIngredient = (ingredient) => (
+  baseFetch(`${DRINKS_INGREDIENT_URL}${ingredient}`)
+);
 const fetchDrinkName = (name) => baseFetch(`${DRINKS_NAME_URL}${name}`);
 const fetchDrinkLetter = (letter) => baseFetch(`${DRINKS_LETTER_URL}${letter}`);
 
