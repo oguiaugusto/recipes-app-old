@@ -48,9 +48,7 @@ export default function Routes() {
         component={ ExploreFoodsByNationalities }
       />
       <Route exact path="/foods/:recipeId" component={ FoodDetails } />
-      <Route exact path="/explore/foods/:recipeId" component={ FoodDetails } />
       <Route exact path="/drinks/:recipeId" component={ DrinkDetails } />
-      <Route exact path="/explore/drinks/:recipeId" component={ DrinkDetails } />
       <Route exact path="/foods/:recipeId/in-progress" component={ FoodInProgress } />
       <Route exact path="/drinks/:recipeId/in-progress" component={ DrinkInProgress } />
       <Route path="*" component={ NotFound } />

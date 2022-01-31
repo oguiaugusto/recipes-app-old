@@ -35,8 +35,8 @@ const fetchCocktailsByCategory = (category) => (
 const fetchMealDetails = (id) => baseFetch(`${MEAL_DETAILS}${id}`);
 const fetchCocktailDetails = (id) => baseFetch(`${COCKTAIL_DETAILS}${id}`);
 
-const fetchRandomFood = () => baseFetch(RANDOM_FOOD);
-const fetchRandomDrink = () => baseFetch(RANDOM_DRINK);
+const fetchMealRandom = () => baseFetch(RANDOM_FOOD);
+const fetchCocktailRandom = () => baseFetch(RANDOM_DRINK);
 
 export {
   fetchMeals,
@@ -47,6 +47,6 @@ export {
   fetchCocktailsByCategory,
   fetchMealDetails,
   fetchCocktailDetails,
-  fetchRandomFood,
-  fetchRandomDrink,
+  fetchMealRandom,
+  fetchCocktailRandom,
 };

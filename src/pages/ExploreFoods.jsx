@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components';
-import { fetchRandomFood } from '../services/mealsAndCocktailsAPI';
+import { fetchMealRandom } from '../services/mealsAndCocktailsAPI';
 
 export default function ExploreFoods() {
   const [foodRandom, setFoodRandom] = useState('');
 
   useEffect(() => {
-    fetchRandomFood()
+    fetchMealRandom()
       .then((data) => setFoodRandom(data.meals[0].idMeal));
   }, []);
 
@@ -32,7 +32,7 @@ export default function ExploreFoods() {
         </button>
       </Link>
 
-      <Link to={ `/explore/foods/${foodRandom}` }>
+      <Link to={ `/foods/${foodRandom}` }>
         <button
           type="button"
           data-testid="explore-surprise"
