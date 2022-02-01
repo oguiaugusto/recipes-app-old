@@ -20,6 +20,11 @@ const baseFetch = (url) => (
 const fetchFoodIngredient = (ingredient) => (
   baseFetch(`${FOODS_INGREDIENT_URL}${ingredient}`)
 );
+
+// fetch para trazer um array de ingredients
+const fetchFoodIngredients = () => baseFetch(`${FOODS_INGREDIENT_URL}`);
+const fetchDrinkIngredients = () => baseFetch(`${FOODS_INGREDIENT_URL}`);
+
 const fetchFoodName = (name) => baseFetch(`${FOODS_NAME_URL}${name}`);
 const fetchFoodLetter = (letter) => baseFetch(`${FOODS_LETTER_URL}${letter}`);
 
@@ -31,4 +36,5 @@ const fetchDrinkName = (name) => baseFetch(`${DRINKS_NAME_URL}${name}`);
 const fetchDrinkLetter = (letter) => baseFetch(`${DRINKS_LETTER_URL}${letter}`);
 
 export { fetchFoodIngredient, fetchFoodName, fetchFoodLetter,
-  fetchDrinkIngredient, fetchDrinkName, fetchDrinkLetter };
+  fetchDrinkIngredient, fetchDrinkName, fetchDrinkLetter,
+  fetchFoodIngredients, fetchDrinkIngredients };
