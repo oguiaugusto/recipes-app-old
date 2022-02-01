@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FavoriteRecipesCard({ recipe, index, unFavorite }) {
-  const [isCopied, setIsCopied] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const TWO_SECONDS = 2000;
 
-  function handleShare() {
+  const copyLink = () => {
     const currentURL = window.location.href;
-    const url = `${currentURL.replace('receitas-favoritas', '')}`
+    const url = `${currentURL.replace('favorite-recipes', '')}`
     + `${recipe.type}s/${recipe.id}`;
-    window.navigator.clipboard.writeText(url);
-    setIsCopied(true);
-  }
+    copy(url);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), TWO_SECONDS);
+  };
 
   return (
     <div>
@@ -29,7 +32,7 @@ export default function FavoriteRecipesCard({ recipe, index, unFavorite }) {
       >
         {
           recipe.alcoholicOrNot === ''
-            ? `${recipe.area} - ${recipe.category}`
+            ? `${recipe.nationality} - ${recipe.category}`
             : `${recipe.alcoholicOrNot}`
         }
       </h1>
@@ -42,19 +45,15 @@ export default function FavoriteRecipesCard({ recipe, index, unFavorite }) {
       </Link>
       <button
         type="button"
-        name={ recipe.image }
-        onClick={ () => handleShare() }
+        onClick={ copyLink }
       >
         <img
-          data-testid={ `${index}-horizontal-share-btn` }
-          className="share-icon"
           src={ shareIcon }
-          alt="shareIcon"
+          alt="share icon"
+          data-testid={ `${index}-horizontal-share-btn` }
         />
       </button>
-      {
-        isCopied && <span>Link Copied!</span>
-      }
+      {copiedLink ? <p>Link copied!</p> : null}
       <button
         type="button"
         onClick={ (event) => unFavorite(event) }
@@ -76,7 +75,7 @@ FavoriteRecipesCard.propTypes = {
   index: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     alcoholicOrNot: PropTypes.string,
-    area: PropTypes.string.isRequired,
+    nationality: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     doneDate: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,

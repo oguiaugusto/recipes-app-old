@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoriteRecipes from '../components/FavoriteRecipes';
+import '../styles/favorites.css';
 
 function ReceitasFavoritas() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [filteredFavoriteRecipes, setFilteredFavoriteRecipes] = useState([]);
 
   const handleClick = (event) => {
-    const { name } = event.target;
+    let { name } = event.target;
+    if (name === 'comida') {
+      name = 'food';
+    } else if (name === 'bebida') {
+      name = 'drink';
+    } else {
+      name = '';
+    }
     const getFavoriteRecipes = favoriteRecipes.filter((recipe) => (
       recipe.type.includes(name)
     ));
