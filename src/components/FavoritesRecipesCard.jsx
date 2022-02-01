@@ -19,7 +19,7 @@ export default function FavoriteRecipesCard({ recipe, index, unFavorite }) {
   };
 
   return (
-    <div>
+    <div className="favorites-recipes-card">
       <Link to={ `/${recipe.type}s/${recipe.id}` }>
         <img
           data-testid={ `${index}-horizontal-image` }

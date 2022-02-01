@@ -8,7 +8,7 @@ function FavoriteRecipes({ handleClick, filteredFavoriteRecipes, unFavorite }) {
       <div>
         <button
           data-testid="filter-by-all-btn"
-          name="da"
+          name="all"
           type="button"
           onClick={ (event) => handleClick(event) }
         >
@@ -16,7 +16,7 @@ function FavoriteRecipes({ handleClick, filteredFavoriteRecipes, unFavorite }) {
         </button>
         <button
           data-testid="filter-by-food-btn"
-          name="comida"
+          name="foods"
           type="button"
           onClick={ (event) => handleClick(event) }
         >
@@ -24,7 +24,7 @@ function FavoriteRecipes({ handleClick, filteredFavoriteRecipes, unFavorite }) {
         </button>
         <button
           data-testid="filter-by-drink-btn"
-          name="bebida"
+          name="drink"
           type="button"
           onClick={ (event) => handleClick(event) }
         >
