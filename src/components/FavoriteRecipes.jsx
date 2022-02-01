@@ -8,7 +8,7 @@ function FavoriteRecipes({ handleClick, filteredFavoriteRecipes, unFavorite }) {
       <div>
         <button
           data-testid="filter-by-all-btn"
-          name="da"
+          name="comidas-bebidas"
           type="button"
           onClick={ (event) => handleClick(event) }
         >
