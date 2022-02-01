@@ -37,6 +37,7 @@ function LocalRecipesList({
             recipe={ recipe }
             index={ index }
             unFavorite={ unFavorite }
+            storageName={ storageName }
           />
         ))
       }

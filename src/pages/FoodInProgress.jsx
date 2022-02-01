@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import { RecipeInfo, IngredientsCheckboxes } from '../components';
 import useFetch from '../custom-hooks/useFetch';
 import { fetchMealDetails } from '../services/mealsAndCocktailsAPI';
+import { addDoneRecipe } from '../services/localStorage';
 import '../styles/progress.css';
 
 const FIFTY = 50;
@@ -24,6 +25,12 @@ export default function FoodInProgress() {
     alcoholicOrNot: '',
     name: meal.strMeal,
     image: meal.strMealThumb,
+  } : {};
+
+  const doneObj = meal !== {} ? {
+    ...favObj,
+    doneDate: new Date().toLocaleString('pt-BR').split(' ')[0],
+    tags: meal.strTags || [],
   } : {};
 
   const handleDisabled = (bool) => {
@@ -64,6 +71,7 @@ export default function FoodInProgress() {
               data-testid="finish-recipe-btn"
               type="button"
               className="fixed-bottom"
+              onClick={ () => addDoneRecipe(doneObj) }
               disabled={ disableBtn }
             >
               Finish Recipe

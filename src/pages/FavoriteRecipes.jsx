@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Header, FilterBtns, LocalRecipesList } from '../components';
-import '../styles/favorites.css';
+import '../styles/localRecipes.css';
 
 function ReceitasFavoritas() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
