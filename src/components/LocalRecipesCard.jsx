@@ -5,7 +5,7 @@ import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function FavoriteRecipesCard({ recipe, index, unFavorite }) {
+export default function LocalRecipesCard({ recipe, index, unFavorite }) {
   const [copiedLink, setCopiedLink] = useState(false);
   const TWO_SECONDS = 2000;
 
@@ -71,7 +71,7 @@ export default function FavoriteRecipesCard({ recipe, index, unFavorite }) {
   );
 }
 
-FavoriteRecipesCard.propTypes = {
+LocalRecipesCard.propTypes = {
   index: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     alcoholicOrNot: PropTypes.string,
