@@ -35,7 +35,7 @@ export default function ExploreDrinksByIngredients() {
           >
             <Card
               width="18rem"
-              thumb={ ingre.strDrinkThumb }
+              thumb={ `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}-Small.png` }
               name={ ingre.strIngredient1 }
               cardTestId={ `${i}-ingredient-card` }
               imgTestId={ `${i}-card-img` }

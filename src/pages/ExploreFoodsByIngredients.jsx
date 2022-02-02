@@ -35,7 +35,7 @@ export default function ExploreFoodsByIngredients() {
           >
             <Card
               width="18rem"
-              thumb={ ingre.strMealThumb }
+              thumb={ `https://www.themealdb.com/images/ingredients/${ingre.strIngredient}-Small.png` }
               name={ ingre.strIngredient }
               cardTestId={ `${i}-ingredient-card` }
               imgTestId={ `${i}-card-img` }

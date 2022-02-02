@@ -15,8 +15,6 @@ export default function GeneralProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [drinksIngredient, setDrinkIngredient] = useState([]);
 
-  console.log(drinksIngredient);
-
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
 
