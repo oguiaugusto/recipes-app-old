@@ -17,12 +17,17 @@ export default function Foods() {
     setFoods,
     foodCategories,
     setFoodCategories,
+    foodsIngredient,
   } = useContext(GeneralContext);
 
   const [foodResponse, Floading] = useFetch(fetchMeals);
   const [categoriesR, Cloading] = useFetch(fetchMealsCategories);
 
-  useEffect(() => setFoods(foodResponse.meals), [foodResponse, setFoods]);
+  useEffect(() => {
+    setFoods(foodsIngredient !== null
+      && foodsIngredient.length ? foodsIngredient : foodResponse.meals);
+  }, [foodResponse, setFoods]);
+
   useEffect(() => setFoodCategories(categoriesR.meals),
     [categoriesR, setFoodCategories]);
 

@@ -9,6 +9,9 @@ const COCKTAILS_BY_CATEGORY_URL = 'https://www.thecocktaildb.com/api/json/v1/1/f
 const MEAL_DETAILS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const COCKTAIL_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+const RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const RANDOM_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
 const baseFetch = (url) => (
   fetch(url)
     .then((r) => r
@@ -32,6 +35,9 @@ const fetchCocktailsByCategory = (category) => (
 const fetchMealDetails = (id) => baseFetch(`${MEAL_DETAILS}${id}`);
 const fetchCocktailDetails = (id) => baseFetch(`${COCKTAIL_DETAILS}${id}`);
 
+const fetchMealRandom = () => baseFetch(RANDOM_FOOD);
+const fetchCocktailRandom = () => baseFetch(RANDOM_DRINK);
+
 export {
   fetchMeals,
   fetchCocktails,
@@ -41,4 +47,6 @@ export {
   fetchCocktailsByCategory,
   fetchMealDetails,
   fetchCocktailDetails,
+  fetchMealRandom,
+  fetchCocktailRandom,
 };
