@@ -1,32 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components';
-import { fetchDrinkIngredients } from '../services/radioButtonApi';
+import { fetchDrinkIngredient, fetchIngredientDrink } from '../services/radioButtonApi';
+import Card from '../components/Card';
+import GeneralContext from '../context/GeneralContext';
 
 const MAX_CARD_NUMBER = 12;
 
 export default function ExploreDrinksByIngredients() {
   const [ingredients, setIngredients] = useState();
 
+  const {
+    setDrinkIngredient,
+  } = useContext(GeneralContext);
+
   useEffect(() => {
-    fetchDrinkIngredients()
-      .then((data) => setIngredients(data.drink));
+    fetchIngredientDrink()
+      .then((data) => setIngredients(data.drinks));
   }, []);
+
+  function handleFetch(ingredient) {
+    fetchDrinkIngredient(ingredient)
+      .then((data) => setDrinkIngredient(data.drinks));
+  }
 
   return (
     <div>
       <Header />
       {ingredients === undefined ? null
-        : (ingredients.map((ingredient, i) => (i < MAX_CARD_NUMBER ? (
-          <Link to="/drinks">
-            <div key={ i } data-testid={ `${i}-ingredient-card>` }>
-              <img
-                alt={ ingredient.strDrink }
-                src={ ingredient.strDrink }
-                data-testid={ `${i}-card-img` }
-              />
-              <p data-testid={ `${i}-card-name` }>{ ingredient.strDrink }</p>
-            </div>
+        : (ingredients.map((ingre, i) => (i < MAX_CARD_NUMBER ? (
+          <Link
+            onClick={ () => handleFetch(ingre.strIngredient1) }
+            to="/drinks"
+          >
+            <Card
+              width="18rem"
+              thumb={ ingre.strDrinkThumb }
+              name={ ingre.strIngredient1 }
+              cardTestId={ `${i}-ingredient-card` }
+              imgTestId={ `${i}-card-img` }
+              titleTestId={ `${i}-card-name` }
+            />
           </Link>
         ) : null)))}
       <Footer />

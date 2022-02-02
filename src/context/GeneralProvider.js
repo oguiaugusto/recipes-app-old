@@ -10,7 +10,12 @@ export default function GeneralProvider({ children }) {
   });
 
   const [foods, setFoods] = useState([]);
+  const [foodsIngredient, setFoodIngredient] = useState([]);
+
   const [drinks, setDrinks] = useState([]);
+  const [drinksIngredient, setDrinkIngredient] = useState([]);
+
+  console.log(drinksIngredient);
 
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
@@ -32,8 +37,12 @@ export default function GeneralProvider({ children }) {
 
     foods,
     setFoods,
+    foodsIngredient,
+    setFoodIngredient,
     drinks,
     setDrinks,
+    drinksIngredient,
+    setDrinkIngredient,
 
     foodCategories,
     setFoodCategories,

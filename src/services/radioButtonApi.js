@@ -8,6 +8,9 @@ const DRINKS_INGREDIENT_URL = 'https://www.thecocktaildb.com/api/json/v1/1/filte
 const DRINKS_NAME_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const DRINKS_LETTER_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
+const INGREDIENTS_URL_FOODS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const INGREDIENTS_URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+
 const baseFetch = (url) => (
   fetch(url)
     .then((r) => r
@@ -21,20 +24,26 @@ const fetchFoodIngredient = (ingredient) => (
   baseFetch(`${FOODS_INGREDIENT_URL}${ingredient}`)
 );
 
-// fetch para trazer um array de ingredients
-const fetchFoodIngredients = () => baseFetch(`${FOODS_INGREDIENT_URL}`);
-const fetchDrinkIngredients = () => baseFetch(`${FOODS_INGREDIENT_URL}`);
-
-const fetchFoodName = (name) => baseFetch(`${FOODS_NAME_URL}${name}`);
-const fetchFoodLetter = (letter) => baseFetch(`${FOODS_LETTER_URL}${letter}`);
-
 // fetch para api de bebidas
 const fetchDrinkIngredient = (ingredient) => (
   baseFetch(`${DRINKS_INGREDIENT_URL}${ingredient}`)
 );
+
+// fetch para trazer um array de ingredients
+const fetchFoodIngredients = () => baseFetch(`${FOODS_INGREDIENT_URL}`);
+const fetchDrinkIngredients = () => baseFetch(`${DRINKS_INGREDIENT_URL}`);
+
+// Usado na tela de explorar por ingredients
+const fetchIngredientFood = () => baseFetch(INGREDIENTS_URL_FOODS);
+const fetchIngredientDrink = () => baseFetch(INGREDIENTS_URL_DRINKS);
+
+const fetchFoodName = (name) => baseFetch(`${FOODS_NAME_URL}${name}`);
+const fetchFoodLetter = (letter) => baseFetch(`${FOODS_LETTER_URL}${letter}`);
+
 const fetchDrinkName = (name) => baseFetch(`${DRINKS_NAME_URL}${name}`);
 const fetchDrinkLetter = (letter) => baseFetch(`${DRINKS_LETTER_URL}${letter}`);
 
 export { fetchFoodIngredient, fetchFoodName, fetchFoodLetter,
   fetchDrinkIngredient, fetchDrinkName, fetchDrinkLetter,
-  fetchFoodIngredients, fetchDrinkIngredients };
+  fetchFoodIngredients, fetchDrinkIngredients,
+  fetchIngredientFood, fetchIngredientDrink };
