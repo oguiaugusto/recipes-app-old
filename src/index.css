@@ -24,3 +24,53 @@ code {
   flex-direction: column;
   align-items: center;
 }
+
+.loader {
+  width: 100vw;
+  height: 80vh;
+}
+
+.header {
+  background-color: #eee;
+  width: 100vw;
+}
+
+.header .header-top {
+  align-items: center;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+}
+
+.header .radio-buttons {
+  width: 100%;
+}
+
+.header .form-check input {
+  margin-left: -20px;
+  position: absolute !important;
+}
+
+.header .form-check label {
+  margin-top: 1px;
+}
+
+@media screen and ( min-width: 576px ) {
+
+  .header-top {
+    width: 90vw;
+  }
+
+  .header-bottom {
+    width: 95%;
+  }
+}
+
+@media screen and ( min-width: 768px ) {
+
+  .header-bottom {
+    width: 750px;
+  }
+}

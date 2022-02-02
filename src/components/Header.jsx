@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { InputGroup, Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
@@ -19,7 +20,7 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
 
   switch (type) {
   case 'Ingredient':
-    if (pathname === '/foods') {
+    if (pathname.includes('/foods')) {
       fetchFoodIngredient(valueSearch)
         .then((data) => setFunc(data.meals));
     } else {
@@ -29,7 +30,7 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
     }
     break;
   case 'Name':
-    if (pathname === '/foods') {
+    if (pathname.includes('/foods')) {
       fetchFoodName(valueSearch)
         .then((data) => setFunc(data.meals));
     } else {
@@ -40,7 +41,7 @@ function handleIsSearch(setFunc, type, pathname, valueSearch) {
     break;
   case 'First Letter':
     if (valueSearch.length > 1) return global.alert(msgAlert);
-    if (pathname === '/foods') {
+    if (pathname.includes('/foods')) {
       fetchFoodLetter(valueSearch)
         .then((data) => setFunc(data.meals));
     } else {
@@ -76,15 +77,16 @@ export default function Header() {
   const [recipes, setRecipes] = useState([]);
   const [searchValue, setsearchValue] = useState('');
   const [isInput, setIsInput] = useState(false);
-  const [typeRadio, setTypeRadio] = useState('');
+  const [typeRadio, setTypeRadio] = useState('Ingredient');
 
   const [defaultFoods] = useFetch(fetchMeals);
   const [defaultDrinks] = useFetch(fetchCocktails);
   const ALERT = 'Sorry, we haven\'t found any recipes for these filters.';
 
   useEffect(() => {
-    if (pathname === '/foods') setFoods(recipes);
-    if (pathname === '/drinks') setDrinks(recipes);
+    if (pathname.includes('/foods')) setFoods(recipes);
+    if (pathname.includes('/drinks')) setDrinks(recipes);
+    setsearchValue('');
   }, [pathname, recipes, setDrinks, setFoods]);
 
   const checkPathname = (
@@ -94,7 +96,7 @@ export default function Header() {
   );
 
   if (recipes === null) {
-    if (pathname === '/foods') {
+    if (pathname.includes('/foods')) {
       setRecipes(defaultFoods.meals);
     } else {
       setRecipes(defaultDrinks.drinks);
@@ -104,71 +106,77 @@ export default function Header() {
   }
 
   if (recipes.length === 1) {
-    return (pathname === '/foods')
+    return (pathname.includes('/foods'))
       ? <Redirect to={ `${pathname}/${recipes[0].idMeal}` } /> : (
         <Redirect to={ `${pathname}/${recipes[0].idDrink}` } />
       );
   }
 
   return (
-    <header>
-      <h1 data-testid="page-title">{fixTitle(pathname)}</h1>
-
-      <Link to="/profile">
-        <button
-          type="button"
-        >
-          <img
-            data-testid="profile-top-btn"
-            src={ imageProfile }
-            alt="profile"
+    <header className="header px-3 py-2 d-flex flex-column">
+      <div className="header-top d-flex justify-content-between align-self-sm-center">
+        <Link to="/profile">
+          <button type="button" className="btn-icon">
+            <img
+              data-testid="profile-top-btn"
+              src={ imageProfile }
+              alt="profile"
+            />
+          </button>
+        </Link>
+        <h1 data-testid="page-title" className="mb-0">{fixTitle(pathname)}</h1>
+        {/* checkPathname verifica o nome da rota. A depender da rota ela renderiza o button search */}
+        {checkPathname ? (
+          <ButtonSearch
+            boolean={ !isInput }
+            setBoolean={ setIsInput }
+            icon={ imageSearch }
           />
-        </button>
-      </Link>
-
-      {/* checkPathname verifica o nome da rota. A depender da rota ela renderiza o button search */}
-      {checkPathname ? (
-        <ButtonSearch
-          boolean={ !isInput }
-          setBoolean={ setIsInput }
-          icon={ imageSearch }
-        />
-      )
-        : null}
-      {/* Faz aparecer o input de texto. isInput alterna entre true and false ao ser clicado. */}
-      {isInput ? (
-        <InputSearch handleChange={ setsearchValue } />)
-        : null}
-
-      <div>
-        <RadioFilter
-          Value="Ingredient"
-          setValue={ setTypeRadio }
-          name="search"
-          testid="ingredient-search-radio"
-        />
-
-        <RadioFilter
-          Value="Name"
-          setValue={ setTypeRadio }
-          name="search"
-          testid="name-search-radio"
-        />
-
-        <RadioFilter
-          Value="First Letter"
-          setValue={ setTypeRadio }
-          name="search"
-          testid="first-letter-search-radio"
-        />
-
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ () => handleIsSearch(setRecipes, typeRadio, pathname, searchValue) }
-        >
-          Search
-        </button>
+        )
+          : null}
+      </div>
+      <div className="header-bottom d-sm-flex align-items-center align-self-sm-center">
+        {/* Faz aparecer o input de texto. isInput alterna entre true and false ao ser clicado. */}
+        {isInput ? (
+          <InputGroup className="mt-2 mt-sm-1">
+            <InputSearch handleChange={ setsearchValue } v={ searchValue } />
+            <Button
+              variant="warning"
+              type="button"
+              data-testid="exec-search-btn"
+              disabled={ searchValue === '' || typeRadio === '' }
+              onClick={ () => (
+                handleIsSearch(setRecipes, typeRadio, pathname, searchValue)
+              ) }
+            >
+              Search
+            </Button>
+          </InputGroup>
+        )
+          : null}
+        <div className="radio-buttons mt-3 d-flex justify-content-around mt-sm-2 mx-md-3">
+          <RadioFilter
+            Value="Ingredient"
+            setValue={ setTypeRadio }
+            typeRadio={ typeRadio }
+            name="search"
+            testid="ingredient-search-radio"
+          />
+          <RadioFilter
+            Value="Name"
+            setValue={ setTypeRadio }
+            typeRadio={ typeRadio }
+            name="search"
+            testid="name-search-radio"
+          />
+          <RadioFilter
+            Value="First Letter"
+            setValue={ setTypeRadio }
+            typeRadio={ typeRadio }
+            name="search"
+            testid="first-letter-search-radio"
+          />
+        </div>
       </div>
     </header>
   );
