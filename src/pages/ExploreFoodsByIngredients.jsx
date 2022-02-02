@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components';
-import { fetchFoodIngredient, fetchIngredientFood } from '../services/radioButtonApi';
+import {
+  fetchFoodIngredient,
+  fetchIngredientFood,
+} from '../services/mealsAndCocktailsAPI';
 import Card from '../components/Card';
 import GeneralContext from '../context/GeneralContext';
 

@@ -2,17 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
-import {
-  fetchFoodIngredient,
-  fetchFoodName, fetchFoodLetter, fetchDrinkIngredient,
-  fetchDrinkName, fetchDrinkLetter,
-} from '../services/radioButtonApi';
 import ButtonSearch from './Header/ButtonSearch';
 import InputSearch from './Header/InputSearch';
 import RadioFilter from './Header/RadioFilter';
 import GeneralContext from '../context/GeneralContext';
 import useFetch from '../custom-hooks/useFetch';
-import { fetchMeals, fetchCocktails } from '../services/mealsAndCocktailsAPI';
+import {
+  fetchMeals,
+  fetchCocktails,
+  fetchFoodIngredient,
+  fetchFoodName,
+  fetchFoodLetter,
+  fetchDrinkIngredient,
+  fetchDrinkName,
+  fetchDrinkLetter,
+} from '../services/mealsAndCocktailsAPI';
 
 function handleIsSearch(setFunc, type, pathname, valueSearch) {
   const msgAlert = 'Your search must have only 1 (one) character';
@@ -126,19 +130,16 @@ export default function Header() {
         </button>
       </Link>
 
-      {/* checkPathname verifica o nome da rota. A depender da rota ela renderiza o button search */}
-      {checkPathname ? (
+      {checkPathname && (
         <ButtonSearch
           boolean={ !isInput }
           setBoolean={ setIsInput }
           icon={ imageSearch }
         />
-      )
-        : null}
-      {/* Faz aparecer o input de texto. isInput alterna entre true and false ao ser clicado. */}
-      {isInput ? (
-        <InputSearch handleChange={ setsearchValue } />)
-        : null}
+      ) }
+
+      {isInput && (
+        <InputSearch handleChange={ setsearchValue } />) }
 
       <div>
         <RadioFilter
