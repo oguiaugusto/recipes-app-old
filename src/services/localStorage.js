@@ -14,12 +14,13 @@ export const getDoneRecipes = () => {
   return doneRecipes;
 };
 
-export const addInProgressRecipe = (recipe, type) => {
+export const addInProgressRecipe = (recipe, type, id) => {
   const obj = localStorage.getItem('inProgressRecipes');
-  const inProgressRecipes = obj ? {
-    ...obj,
-    [type]: { ...obj[type], [recipe.id]: recipe },
-  } : { cocktails: {}, meals: {} };
+  const baseObj = { cocktails: {}, meals: {} };
+  const inProgressRecipes = JSON.parse(obj) ? {
+    ...JSON.parse(obj),
+    [type]: { ...obj[type], [id]: recipe },
+  } : { ...baseObj, [type]: { [id]: recipe } };
 
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 };

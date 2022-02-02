@@ -1,0 +1,11 @@
+.local-recipes-card img {
+  cursor: pointer;
+}
+
+.local-recipes-card .card-title {
+  cursor: pointer;
+}
+
+.tags {
+  font-size: 10px;
+}

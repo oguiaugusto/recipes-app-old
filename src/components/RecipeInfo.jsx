@@ -19,7 +19,7 @@ const filterValuesFromObject = (obj, entrieName) => (
 );
 
 export default function RecipeInfo({
-  title, category, recipe, instructions, id, favObj,
+  title, category, recipe, instructions, id, favObj, inProgress, ingredientsCheckboxes,
 }) {
   const ingredients = recipe !== {}
     ? filterValuesFromObject(recipe, 'strIngredient') : [];
@@ -29,7 +29,9 @@ export default function RecipeInfo({
   const [copiedLink, setCopiedLink] = useState(false);
 
   const copyLink = () => {
-    copy(window.location.href);
+    let windowUrl = window.location.href;
+    if (inProgress) windowUrl = windowUrl.split('/in-progress').join('');
+    copy(windowUrl);
     setCopiedLink(true);
 
     setTimeout(() => setCopiedLink(false), TWO_SECONDS);
@@ -90,16 +92,23 @@ export default function RecipeInfo({
       </div>
       <div className="recipe-ingredients">
         <p className="recipe-info-title">Ingredients</p>
-        <ul>
-          {ingredients.map((ingredient, i) => (
-            <li
-              key={ `ingredient-${i}-${ingredient}` }
-              data-testid={ `${i}-ingredient-name-and-measure` }
-            >
-              {`– ${ingredient} - ${measures[i]}`}
-            </li>
-          ))}
-        </ul>
+        {
+          inProgress ? ingredientsCheckboxes(ingredients, measures) : (
+            <ul>
+              {
+                ingredients.map((ingredient, i) => (
+                  <li
+                    key={ `ingredient-${i}-${ingredient}` }
+                    data-testid={ `${i}-ingredient-name-and-measure` }
+                  >
+                    {`– ${ingredient} - ${measures[i]}`}
+                  </li>
+                ))
+              }
+            </ul>
+          )
+        }
+
       </div>
       <div className="recipe-instructions">
         <p className="recipe-info-title">Instructions</p>
@@ -116,4 +125,11 @@ RecipeInfo.propTypes = {
   instructions: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   favObj: PropTypes.objectOf(PropTypes.any).isRequired,
+  inProgress: PropTypes.bool,
+  ingredientsCheckboxes: PropTypes.func,
+};
+
+RecipeInfo.defaultProps = {
+  inProgress: false,
+  ingredientsCheckboxes: () => {},
 };

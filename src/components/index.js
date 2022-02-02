@@ -4,5 +4,20 @@ import Card from './Card';
 import RecipeCategories from './RecipeCategories';
 import RecipeInfo from './RecipeInfo';
 import Recommendations from './Recommendations';
+import IngredientsCheckboxes from './IngredientsCheckboxes';
+import LocalRecipesList from './LocalRecipesList';
+import LocalRecipesCard from './LocalRecipesCard';
+import FilterBtns from './FilterBtns';
 
-export { Header, Footer, Card, RecipeCategories, RecipeInfo, Recommendations };
+export {
+  Header,
+  Footer,
+  Card,
+  RecipeCategories,
+  RecipeInfo,
+  Recommendations,
+  IngredientsCheckboxes,
+  LocalRecipesList,
+  LocalRecipesCard,
+  FilterBtns,
+};
