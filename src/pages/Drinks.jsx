@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Footer, Card, RecipeCategories } from '../components';
+import { Header, Footer, Card, RecipeCategories, Loader } from '../components';
 import GeneralContext from '../context/GeneralContext';
 import useFetch from '../custom-hooks/useFetch';
 import {
@@ -33,9 +33,9 @@ export default function Drinks() {
     <div>
       <Header />
       {loading ? (
-        <h1>Loading...</h1>
+        <Loader />
       ) : (
-        <div className="categories-container">
+        <div className="categories-container text-light d-flex flex-column">
           <RecipeCategories
             food={ false }
             setSelectedCategory={ setSelectedCategory }
@@ -45,12 +45,12 @@ export default function Drinks() {
             categories={ drinkCategories }
             setLoading={ setLoading }
           />
-          <div className="recipes-list">
+          <div className="recipes-list d-flex flex-wrap justify-content-around">
             {
               drinks.map((drink, i) => (i < MAX_CARD_NUMBER ? (
                 <Link key={ drink.idDrink } to={ `/drinks/${drink.idDrink}` }>
                   <Card
-                    width="18rem"
+                    width="280px"
                     thumb={ drink.strDrinkThumb }
                     name={ drink.strDrink }
                     cardTestId={ `${i}-recipe-card` }

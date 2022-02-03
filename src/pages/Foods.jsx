@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Footer, Card, RecipeCategories } from '../components';
+import { Header, Footer, Card, RecipeCategories, Loader } from '../components';
 import GeneralContext from '../context/GeneralContext';
 import useFetch from '../custom-hooks/useFetch';
 import {
   fetchMeals,
   fetchMealsCategories,
 } from '../services/mealsAndCocktailsAPI';
+import '../styles/recipes.css';
 
 const MAX_CARD_NUMBER = 12;
 
@@ -33,9 +34,9 @@ export default function Foods() {
     <div>
       <Header />
       {loading ? (
-        <h1>Loading...</h1>
+        <Loader />
       ) : (
-        <div className="foods-container">
+        <div className="foods-container text-light d-flex flex-column">
           <RecipeCategories
             food
             setSelectedCategory={ setSelectedCategory }
@@ -45,12 +46,12 @@ export default function Foods() {
             categories={ foodCategories }
             setLoading={ setLoading }
           />
-          <div className="recipes-list">
+          <div className="recipes-list d-flex flex-wrap justify-content-around">
             {
               foods.map((food, i) => (i < MAX_CARD_NUMBER ? (
                 <Link key={ food.idMeal } to={ `/foods/${food.idMeal}` }>
                   <Card
-                    width="18rem"
+                    width="280px"
                     thumb={ food.strMealThumb }
                     name={ food.strMeal }
                     cardTestId={ `${i}-recipe-card` }

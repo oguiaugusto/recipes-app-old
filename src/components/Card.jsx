@@ -6,7 +6,7 @@ export default function Card({
   width, thumb, name, cardTestId, imgTestId, titleTestId,
 }) {
   return (
-    <C data-testid={ cardTestId } style={ { width } }>
+    <C data-testid={ cardTestId } style={ { width } } className="mb-5 mx-3 text-dark">
       <C.Img data-testid={ imgTestId } variant="top" src={ thumb } />
       <C.Body>
         <C.Title data-testid={ titleTestId }>{name}</C.Title>

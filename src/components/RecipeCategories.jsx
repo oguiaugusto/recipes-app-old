@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { ButtonGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {
   fetchCocktailsByCategory,
@@ -39,10 +39,10 @@ export default function RecipeCategories({
   };
 
   return (
-    <div className="categories">
+    <ButtonGroup className="categories mb-5 flex-wrap">
       <Button
         data-testid="All-category-filter"
-        variant={ selectedCategory === 'All' ? 'success' : 'dark' }
+        variant={ selectedCategory === 'All' ? 'light' : 'secondary' }
         onClick={ () => {
           setRecipes(recipes);
           setSelectedCategory('All');
@@ -51,7 +51,7 @@ export default function RecipeCategories({
         All
       </Button>
       {categories.map(({ strCategory }, i) => {
-        const variant = strCategory === selectedCategory ? 'success' : 'dark';
+        const variant = strCategory === selectedCategory ? 'light' : 'secondary';
         return i < MAX_CATEGORY_NUMBER ? (
           <Button
             data-testid={ `${strCategory}-category-filter` }
@@ -63,7 +63,7 @@ export default function RecipeCategories({
           </Button>
         ) : null;
       })}
-    </div>
+    </ButtonGroup>
   );
 }
 
