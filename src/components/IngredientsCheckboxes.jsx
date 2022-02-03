@@ -27,7 +27,7 @@ export default function IngredientsCheckboxes({
 
   return (
     <div>
-      <form>
+      <ul className="list-group list-group-flush">
         {
           ingredients.map((ingredient, i) => {
             const ingredientClass = checkedIngredients && checkedIngredients[ingredient]
@@ -35,12 +35,14 @@ export default function IngredientsCheckboxes({
             const ingredientChecked = checkedIngredients
               ? checkedIngredients[ingredient] : false;
             return (
-              <div
+              <li
                 key={ `ingredient-${i}-${ingredient}` }
-                data-testid={ `${i}-ingredient-step` }
-                className={ `form-check form-switch mb-2 ms-4 ${ingredientClass}` }
+                className="list-group-item bg-dark text-light"
               >
-                <label htmlFor={ ingredient } className={ `${ingredientClass}` }>
+                <div
+                  data-testid={ `${i}-ingredient-step` }
+                  className={ `form-check form-switch ms-3 mb-0 ${ingredientClass}` }
+                >
                   <input
                     type="checkbox"
                     name={ ingredient }
@@ -50,13 +52,15 @@ export default function IngredientsCheckboxes({
                     defaultChecked={ ingredientChecked }
                     onChange={ handleCheckbox }
                   />
-                  { `${ingredient} - ${measures[i]}` }
-                </label>
-              </div>
+                  <label htmlFor={ ingredient } className="ingredient-checkbox-label">
+                    { `${ingredient} - ${measures[i]}` }
+                  </label>
+                </div>
+              </li>
             );
           })
         }
-      </form>
+      </ul>
     </div>
   );
 }

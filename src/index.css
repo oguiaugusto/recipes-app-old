@@ -2,7 +2,7 @@
 
 * {
   margin: 0;
-  text-decoration: none !important;
+  text-decoration: none;
   box-sizing: border-box;
 }
 
@@ -20,6 +20,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  text-decoration: none !important;
 }
 
 #root {
@@ -64,6 +68,7 @@ code {
   background-color: #eee;
   width: 100vw;
 }
+
 
 @media screen and ( min-width: 576px ) {
 
