@@ -15,23 +15,27 @@ export default function Recommendations({ recipes, drink }) {
     ? separateArrayByPairs([...recipes].filter((_m, i) => i < SIX)) : [];
 
   return (
-    <div className="recipe-recommendations">
-      <p className="recipe-info-title">Recommended</p>
+    <div className="recipe-recommendations pb-4">
+      <h2 className="recipe-info-title px-3 py-2">Recommended</h2>
       <div className="recommendeds-cards">
-        <Carousel variant="dark">
+        <Carousel>
           {recipesArrays.map((recipesPair, index) => (
             <Carousel.Item key={ `recommendation-pair-${index}` }>
               <div className="recommendation-pair d-flex justify-content-around">
-                {recipesPair.map((r, i) => (
-                  <Card
-                    key={ `recomendation-card-${i + index + index}` }
-                    width="40%"
-                    thumb={ drink ? r.strMealThumb : r.strDrinkThumb }
-                    name={ drink ? r.strMeal : r.strDrink }
-                    cardTestId={ `${i + index + index}-recomendation-card` }
-                    titleTestId={ `${i + index + index}-recomendation-title` }
-                  />
-                ))}
+                {recipesPair.map((r, i) => {
+                  const recipeUrl = drink ? `/foods/${r.idMeal}` : `/drinks/${r.idDrink}`;
+                  return (
+                    <Card
+                      key={ `recomendation-card-${i + index + index}` }
+                      width="45%"
+                      thumb={ drink ? r.strMealThumb : r.strDrinkThumb }
+                      name={ drink ? r.strMeal : r.strDrink }
+                      cardTestId={ `${i + index + index}-recomendation-card` }
+                      titleTestId={ `${i + index + index}-recomendation-title` }
+                      recipeUrl={ recipeUrl }
+                    />
+                  );
+                })}
               </div>
             </Carousel.Item>
           ))}

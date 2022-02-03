@@ -44,19 +44,20 @@ export default function RecipeInfo({
   }, [id, isFavorite]);
 
   return (
-    <div className="recipe-info">
-      <div className="recipe-header">
-        <p data-testid="recipe-title" className="recipe-title">
+    <div className="recipe-info px-3">
+      <div className="recipe-header position-relative">
+        <h1 data-testid="recipe-title" className="recipe-title mb-0 mt-2">
           {title}
-        </p>
-        <p data-testid="recipe-category" className="recipe-category">
+        </h1>
+        <p data-testid="recipe-category" className="recipe-category text-muted">
           {category}
         </p>
-        <div className="recipe-header-buttons">
+        <div className="recipe-header-buttons position-absolute">
           {
             isFavorite ? (
               <button
                 type="button"
+                className="btn-icon"
                 onClick={ () => {
                   removeFavoriteRecipe(favObj);
                   setIsFavorite(false);
@@ -71,6 +72,7 @@ export default function RecipeInfo({
             ) : (
               <button
                 type="button"
+                className="btn-icon"
                 onClick={ () => {
                   addFavoriteRecipe(favObj);
                   setIsFavorite(true);
@@ -84,35 +86,47 @@ export default function RecipeInfo({
               </button>
             )
           }
-          <button data-testid="share-btn" type="button" onClick={ copyLink }>
+          <button
+            data-testid="share-btn"
+            type="button"
+            className="btn-icon"
+            onClick={ copyLink }
+          >
             <img src={ shareIcon } alt="share icon" />
           </button>
-          {copiedLink ? <p>Link copied!</p> : null}
+          {copiedLink ? (
+            <p className="copied">Link copied!</p>
+          ) : null}
         </div>
       </div>
-      <div className="recipe-ingredients">
-        <p className="recipe-info-title">Ingredients</p>
-        {
-          inProgress ? ingredientsCheckboxes(ingredients, measures) : (
-            <ul>
-              {
-                ingredients.map((ingredient, i) => (
-                  <li
-                    key={ `ingredient-${i}-${ingredient}` }
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                  >
-                    {`– ${ingredient} - ${measures[i]}`}
-                  </li>
-                ))
-              }
-            </ul>
-          )
-        }
-
-      </div>
-      <div className="recipe-instructions">
-        <p className="recipe-info-title">Instructions</p>
-        <p data-testid="instructions">{instructions}</p>
+      <div className="recipe-body d-md-flex flex-wrap justify-content-between">
+        <div className="recipe-ingredients my-4">
+          <h2 className="recipe-info-title">Ingredients</h2>
+          {
+            inProgress ? ingredientsCheckboxes(ingredients, measures) : (
+              <ul className="list-group list-group-flush">
+                {
+                  ingredients.map((ingredient, i) => (
+                    <li
+                      key={ `ingredient-${i}-${ingredient}` }
+                      className="list-group-item bg-dark text-light"
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                    >
+                      {
+                        measures[i]
+                          ? `– ${ingredient} - ${measures[i]}` : `– ${ingredient}`
+                      }
+                    </li>
+                  ))
+                }
+              </ul>
+            )
+          }
+        </div>
+        <div className="recipe-instructions my-4">
+          <h2 className="recipe-info-title">Instructions</h2>
+          <p data-testid="instructions" className="bg-dark py-3 px-4">{instructions}</p>
+        </div>
       </div>
     </div>
   );
