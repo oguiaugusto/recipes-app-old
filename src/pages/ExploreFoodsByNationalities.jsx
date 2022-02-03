@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer, Card } from '../components';
-import { fetchMeals } from '../services/mealsAndCocktailsAPI';
-import { fetchFoodArea, fetchFoodAreas } from '../services/radioButtonApi';
+import {
+  fetchByFoodArea,
+  fetchFoodAreas,
+  fetchMeals,
+} from '../services/mealsAndCocktailsAPI';
 
 const MAX_CARD_NUMBER = 12;
 const ALL = 'All';
@@ -22,10 +25,12 @@ export default function ExploreFoodsByNationalities() {
   function handleFetch(value) {
     if (value === 'All') {
       fetchMeals(value)
-        .then((data) => setFoodsNation(data.meals));
+        .then((data) => setFoodsNation(data.meals))
+        .catch(() => setFoodsNation(foodsNation));
     }
-    fetchFoodArea(value)
-      .then((data) => setFoodsNation(data.meals));
+    fetchByFoodArea(value)
+      .then((data) => setFoodsNation(data.meals))
+      .catch(() => setFoodsNation(foodsNation));
   }
 
   return (
@@ -44,7 +49,7 @@ export default function ExploreFoodsByNationalities() {
           {ALL}
         </option>
 
-        { countries.map(
+        { countries !== [] ? countries.map(
           (countrie, i) => (
             <option
               key={ i }
@@ -53,7 +58,7 @@ export default function ExploreFoodsByNationalities() {
             >
               {countrie.strArea}
             </option>),
-        ) }
+        ) : null }
       </select>
 
       {

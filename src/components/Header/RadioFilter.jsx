@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function RadioFilter({ Value, setValue, name, testid }) {
-  // function fixStringForData(string) {
-  //   if (string.includes('-')) {
-  //     return string.replace(' ', '-').toLowerCase();
-  //   }
-  //   return string.toLowerCase();
-  // }
-
   return (
     <label
       htmlFor={ `${name}-search-choice` }
