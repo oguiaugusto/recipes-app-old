@@ -17,12 +17,16 @@ export default function Drinks() {
     setDrinks,
     drinkCategories,
     setDrinkCategories,
+    drinksIngredient,
   } = useContext(GeneralContext);
 
   const [drinksResponse, CtLoading] = useFetch(fetchCocktails);
   const [categoriesR, Cloading] = useFetch(fetchCocktailsCategories);
 
-  useEffect(() => setDrinks(drinksResponse.drinks), [drinksResponse, setDrinks]);
+  useEffect(() => {
+    setDrinks(drinksIngredient.length ? drinksIngredient : drinksResponse.drinks);
+  }, [drinksIngredient, drinksResponse, setDrinks]);
+
   useEffect(() => setDrinkCategories(categoriesR.drinks),
     [categoriesR, setDrinkCategories]);
 

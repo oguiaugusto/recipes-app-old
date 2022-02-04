@@ -3,17 +3,21 @@ import { InputGroup, Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
-import {
-  fetchFoodIngredient,
-  fetchFoodName, fetchFoodLetter, fetchDrinkIngredient,
-  fetchDrinkName, fetchDrinkLetter,
-} from '../services/radioButtonApi';
 import ButtonSearch from './Header/ButtonSearch';
 import InputSearch from './Header/InputSearch';
 import RadioFilter from './Header/RadioFilter';
 import GeneralContext from '../context/GeneralContext';
 import useFetch from '../custom-hooks/useFetch';
-import { fetchMeals, fetchCocktails } from '../services/mealsAndCocktailsAPI';
+import {
+  fetchMeals,
+  fetchCocktails,
+  fetchFoodIngredient,
+  fetchFoodName,
+  fetchFoodLetter,
+  fetchDrinkIngredient,
+  fetchDrinkName,
+  fetchDrinkLetter,
+} from '../services/mealsAndCocktailsAPI';
 
 function handleIsSearch(setFunc, type, pathname, valueSearch) {
   const msgAlert = 'Your search must have only 1 (one) character';
