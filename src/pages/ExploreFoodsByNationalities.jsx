@@ -36,7 +36,7 @@ export default function ExploreFoodsByNationalities() {
 
   return (
     <div className="mb-5">
-      <Header />
+      <Header smallerTitle />
       {loading ? (
         <Loader />
       ) : (

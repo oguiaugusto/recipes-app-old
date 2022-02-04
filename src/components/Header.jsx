@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { InputGroup, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
@@ -79,7 +80,36 @@ function setRecipesFoodsOrDrinks(pathname, setFoods, setDrinks, recipes) {
   if (pathname.includes('/drinks')) setDrinks(recipes);
 }
 
-export default function Header() {
+function getConditionalClasses(checkPathname, smallerTitle, classType, pathname) {
+  let headerTopClass = checkPathname && !smallerTitle
+    ? 'header-top d-flex justify-content-between align-self-sm-center'
+    : 'header-top d-flex justify-content-center align-self-sm-center position-relative';
+  let profileBtnClass = checkPathname && !smallerTitle
+    ? 'btn-icon profile' : 'btn-icon profile-abs position-absolute';
+  let titleClass = smallerTitle ? 'smaller-title mb-0' : 'mb-0';
+
+  if (fixTitle(pathname) === 'Explore Nationalities') {
+    headerTopClass = 'header-top d-flex justify-content-between align-self-sm-center';
+    profileBtnClass = 'btn-icon profile';
+  }
+
+  if (fixTitle(pathname) === 'Explore Ingredients') {
+    titleClass = 'smaller-title mb-0 ms-3';
+  }
+
+  switch (classType) {
+  case 'header-top':
+    return headerTopClass;
+  case 'profile':
+    return profileBtnClass;
+  case 'title':
+    return titleClass;
+  default:
+    return '';
+  }
+}
+
+export default function Header({ smallerTitle }) {
   const { location: { pathname } } = window;
   const { setFoods, setDrinks } = useContext(GeneralContext);
 
@@ -120,11 +150,15 @@ export default function Header() {
       );
   }
 
-  const headerTopClass = checkPathname
-    ? 'header-top d-flex justify-content-between align-self-sm-center'
-    : 'header-top d-flex justify-content-center align-self-sm-center position-relative';
-  const profileBtnClass = checkPathname
-    ? 'btn-icon profile' : 'btn-icon profile-abs position-absolute';
+  const headerTopClass = getConditionalClasses(
+    checkPathname, smallerTitle, 'header-top', pathname,
+  );
+  const profileBtnClass = getConditionalClasses(
+    checkPathname, smallerTitle, 'profile', pathname,
+  );
+  const titleClass = getConditionalClasses(
+    checkPathname, smallerTitle, 'title', pathname,
+  );
 
   return (
     <header className="header px-3 py-2 d-flex flex-column">
@@ -138,7 +172,7 @@ export default function Header() {
             />
           </button>
         </Link>
-        <h1 data-testid="page-title" className="mb-0">{fixTitle(pathname)}</h1>
+        <h1 data-testid="page-title" className={ titleClass }>{fixTitle(pathname)}</h1>
         {/* checkPathname verifica o nome da rota. A depender da rota ela renderiza o button search */}
         {checkPathname ? (
           <ButtonSearch
@@ -201,3 +235,11 @@ export default function Header() {
     </header>
   );
 }
+
+Header.propTypes = {
+  smallerTitle: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  smallerTitle: false,
+};

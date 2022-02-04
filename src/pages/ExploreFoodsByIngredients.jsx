@@ -30,7 +30,7 @@ export default function ExploreFoodsByIngredients() {
 
   return (
     <div>
-      <Header />
+      <Header smallerTitle />
       {loading ? (
         <Loader />
       ) : (

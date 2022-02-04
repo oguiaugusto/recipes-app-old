@@ -13,7 +13,7 @@ export default function ExploreDrinks() {
 
   return (
     <div>
-      <Header />
+      <Header smallerTitle />
       <Link to="/explore/drinks/ingredients">
         <button
           type="button"
