@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components';
+import '../styles/explore.css';
 
 export default function Explore() {
   return (
