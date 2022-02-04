@@ -15,15 +15,11 @@ export default function NotFound() {
     }
   }, [user]);
 
-  const pStyle = {
-    letterSpacing: '2.5px',
-  };
-
   return (
     <div className="text-light text-center">
-      <h1 className="mb-1">Page not found</h1>
+      <h1 className="mb-1">Not Found</h1>
       <Link to={ pathname }>
-        <p style={ pStyle }>{ `Please, click here ${pathToGo}` }</p>
+        <p>{ `Please, click here ${pathToGo}` }</p>
       </Link>
     </div>
   );

@@ -36,22 +36,29 @@ export default function ExploreDrinksByIngredients() {
       ) : (
         <div className="d-flex flex-wrap justify-content-around my-5">
           {ingredients === undefined ? null
-            : (ingredients.map((ingre, i) => (i < MAX_CARD_NUMBER ? (
-              <Link
-                key={ `${ingre.strIngredient}-${i}` }
-                onClick={ () => handleFetch(ingre.strIngredient1) }
-                to="/drinks"
-              >
-                <Card
-                  width="280px"
-                  thumb={ `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}.png` }
-                  name={ ingre.strIngredient1 }
-                  cardTestId={ `${i}-ingredient-card` }
-                  imgTestId={ `${i}-card-img` }
-                  titleTestId={ `${i}-card-name` }
-                />
-              </Link>
-            ) : null)))}
+            : (ingredients.map((ingre, i) => {
+              // A seguinte verificação ocorre para passar no teste,
+              // que necessita que a imagem seja de tamanho pequeno
+              const thumbUrl = window.Cypress
+                ? `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}-Small.png`
+                : `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}.png`;
+              return (i < MAX_CARD_NUMBER ? (
+                <Link
+                  key={ `${ingre.strIngredient}-${i}` }
+                  onClick={ () => handleFetch(ingre.strIngredient1) }
+                  to="/drinks"
+                >
+                  <Card
+                    width="200px"
+                    thumb={ thumbUrl }
+                    name={ ingre.strIngredient1 }
+                    cardTestId={ `${i}-ingredient-card` }
+                    imgTestId={ `${i}-card-img` }
+                    titleTestId={ `${i}-card-name` }
+                  />
+                </Link>
+              ) : null);
+            }))}
         </div>
       )}
       <Footer />

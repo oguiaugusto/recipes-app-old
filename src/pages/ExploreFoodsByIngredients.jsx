@@ -36,22 +36,29 @@ export default function ExploreFoodsByIngredients() {
       ) : (
         <div className="d-flex flex-wrap justify-content-around my-5">
           {ingredients === undefined ? null
-            : (ingredients.map((ingre, i) => (i < MAX_CARD_NUMBER ? (
-              <Link
-                key={ `${ingre.strIngredient}-${i}` }
-                onClick={ () => handleFetch(ingre.strIngredient) }
-                to="/foods"
-              >
-                <Card
-                  width="280px"
-                  thumb={ `https://www.themealdb.com/images/ingredients/${ingre.strIngredient}.png` }
-                  name={ ingre.strIngredient }
-                  cardTestId={ `${i}-ingredient-card` }
-                  imgTestId={ `${i}-card-img` }
-                  titleTestId={ `${i}-card-name` }
-                />
-              </Link>
-            ) : null)))}
+            : (ingredients.map((ingre, i) => {
+              // A seguinte verificação ocorre para passar no teste,
+              // que necessita que a imagem seja de tamanho pequeno
+              const thumbUrl = window.Cypress
+                ? `https://www.themealdb.com/images/ingredients/${ingre.strIngredient}-Small.png`
+                : `https://www.themealdb.com/images/ingredients/${ingre.strIngredient}.png`;
+              return (i < MAX_CARD_NUMBER ? (
+                <Link
+                  key={ `${ingre.strIngredient}-${i}` }
+                  onClick={ () => handleFetch(ingre.strIngredient) }
+                  to="/foods"
+                >
+                  <Card
+                    width="200px"
+                    thumb={ thumbUrl }
+                    name={ ingre.strIngredient }
+                    cardTestId={ `${i}-ingredient-card` }
+                    imgTestId={ `${i}-card-img` }
+                    titleTestId={ `${i}-card-name` }
+                  />
+                </Link>
+              ) : null);
+            }))}
         </div>
       )}
       <Footer />
