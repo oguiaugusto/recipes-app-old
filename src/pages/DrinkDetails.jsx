@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useFetch from '../custom-hooks/useFetch';
-import { RecipeInfo, Recommendations } from '../components';
+import { Loader, RecipeInfo, Recommendations } from '../components';
 import { fetchCocktailDetails, fetchMeals } from '../services/mealsAndCocktailsAPI';
 import { getDoneRecipes, getInProgressRecipes } from '../services/localStorage';
 import '../styles/details.css';
@@ -28,12 +28,18 @@ export default function DrinkDetails() {
   } : {};
 
   return (
-    <div>
+    <div className="recipe-details text-light d-flex flex-column">
       {loading ? (
-        <h1>Loading...</h1>
+        <Loader />
       ) : (
         <>
-          <img data-testid="recipe-photo" src={ drink.strDrinkThumb } alt="drink" />
+          <div className="recipe-photo">
+            <img
+              data-testid="recipe-photo"
+              src={ drink.strDrinkThumb }
+              alt="drink"
+            />
+          </div>
           <RecipeInfo
             title={ drink.strDrink }
             category={ drink.strAlcoholic }
@@ -51,6 +57,7 @@ export default function DrinkDetails() {
                   data-testid="start-recipe-btn"
                   type="button"
                   className="fixed-bottom"
+                  style={ { width: '100%' } }
                 >
                   {
                     getInProgressRecipes().cocktails[recipeId]

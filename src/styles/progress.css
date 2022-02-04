@@ -1,3 +1,11 @@
-.done-ingredient label {
-  text-decoration: line-through solid black;
+.recipe-in-progress {
+  width: 100%;
+}
+
+.ingredient-checkbox-label {
+  margin-top: 1.5px;
+}
+
+.done-ingredient .ingredient-checkbox-label {
+  text-decoration: line-through solid rgb(250, 250, 250);
 }

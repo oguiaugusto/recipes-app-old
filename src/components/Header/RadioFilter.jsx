@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function RadioFilter({ Value, setValue, name, testid }) {
+export default function RadioFilter({ Value, setValue, name, testid, typeRadio }) {
   return (
-    <label
-      htmlFor={ `${name}-search-choice` }
-    >
-      {Value}
+    <div className="form-check">
       <input
         type="radio"
-        id={ `${name}-search-choice` }
+        id={ `${Value}-search-choice` }
         name={ name }
         value={ Value }
         data-testid={ testid }
+        checked={ typeRadio === Value }
+        className="form-check-input"
         onChange={ ({ target: { value } }) => setValue(value) }
       />
-    </label>
+      <label
+        htmlFor={ `${Value}-search-choice` }
+        className="form-check-label"
+      >
+        {Value}
+      </label>
+    </div>
   );
 }
 
@@ -24,4 +29,5 @@ RadioFilter.propTypes = {
   setValue: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
+  typeRadio: PropTypes.string.isRequired,
 };

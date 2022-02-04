@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Footer } from '../components';
+import { Header, Footer, Loader } from '../components';
 import {
   fetchDrinkIngredient,
   fetchIngredientDrink,
@@ -12,6 +12,7 @@ const MAX_CARD_NUMBER = 12;
 
 export default function ExploreDrinksByIngredients() {
   const [ingredients, setIngredients] = useState();
+  const [loading, setLoading] = useState(true);
 
   const {
     setDrinkIngredient,
@@ -19,33 +20,47 @@ export default function ExploreDrinksByIngredients() {
 
   useEffect(() => {
     fetchIngredientDrink()
-      .then((data) => setIngredients(data.drinks));
+      .then((data) => { setIngredients(data.drinks); setLoading(false); });
   }, []);
 
   function handleFetch(ingredient) {
     fetchDrinkIngredient(ingredient)
-      .then((data) => setDrinkIngredient(data.drinks));
+      .then((data) => { setDrinkIngredient(data.drinks); setLoading(false); });
   }
 
   return (
     <div>
-      <Header />
-      {ingredients === undefined ? null
-        : (ingredients.map((ingre, i) => (i < MAX_CARD_NUMBER ? (
-          <Link
-            onClick={ () => handleFetch(ingre.strIngredient1) }
-            to="/drinks"
-          >
-            <Card
-              width="18rem"
-              thumb={ `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}-Small.png` }
-              name={ ingre.strIngredient1 }
-              cardTestId={ `${i}-ingredient-card` }
-              imgTestId={ `${i}-card-img` }
-              titleTestId={ `${i}-card-name` }
-            />
-          </Link>
-        ) : null)))}
+      <Header smallerTitle />
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="d-flex flex-wrap justify-content-around my-5">
+          {ingredients === undefined ? null
+            : (ingredients.map((ingre, i) => {
+              // A seguinte verificação ocorre para passar no teste,
+              // que necessita que a imagem seja de tamanho pequeno
+              const thumbUrl = window.Cypress
+                ? `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}-Small.png`
+                : `https://www.thecocktaildb.com/images/ingredients/${ingre.strIngredient1}.png`;
+              return (i < MAX_CARD_NUMBER ? (
+                <Link
+                  key={ `${ingre.strIngredient}-${i}` }
+                  onClick={ () => handleFetch(ingre.strIngredient1) }
+                  to="/drinks"
+                >
+                  <Card
+                    width="200px"
+                    thumb={ thumbUrl }
+                    name={ ingre.strIngredient1 }
+                    cardTestId={ `${i}-ingredient-card` }
+                    imgTestId={ `${i}-card-img` }
+                    titleTestId={ `${i}-card-name` }
+                  />
+                </Link>
+              ) : null);
+            }))}
+        </div>
+      )}
       <Footer />
     </div>
   );

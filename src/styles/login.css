@@ -1,0 +1,14 @@
+.login-page {
+  width: 85vw;
+}
+
+.login-page button {
+  width: 100%;
+}
+
+@media screen and ( min-width : 576px ) {
+
+  .login-page {
+    width: 500px;
+  }
+}

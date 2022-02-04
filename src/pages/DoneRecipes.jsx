@@ -7,7 +7,7 @@ export default function DoneRecipes() {
   const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
 
   return (
-    <div>
+    <div className="local-recipes-list d-flex flex-column">
       <Header title="Receitas Favoritas" />
       <FilterBtns
         recipes={ doneRecipes }

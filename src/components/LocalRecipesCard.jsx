@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import {
+  addFavoriteRecipe,
+  getFavoriteRecipes,
+  removeFavoriteRecipe,
+} from '../services/localStorage';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function LocalRecipesCard({ recipe, index, unFavorite, storageName }) {
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const TWO_SECONDS = 2000;
+
+  useEffect(() => {
+    setIsFavorite(getFavoriteRecipes().some((r) => r.id === recipe.id));
+  }, [recipe.id, isFavorite]);
 
   const copyLink = () => {
     const currentURL = window.location.href;
@@ -28,8 +39,40 @@ export default function LocalRecipesCard({ recipe, index, unFavorite, storageNam
     tags = Array.isArray(recipe.tags) ? recipe.tags : recipe.tags.split(', ');
   }
 
+  const renderUnfavoriteBtn = () => ((isFavorite && storageName === 'doneRecipes') ? (
+    <button
+      type="button"
+      className="btn-icon"
+      onClick={ () => {
+        removeFavoriteRecipe(recipe);
+        setIsFavorite(false);
+      } }
+    >
+      <img
+        data-testid={ `${index}-horizontal-favorite-btn` }
+        src={ blackHeartIcon }
+        name={ recipe.name }
+        alt="favorite icon black"
+      />
+    </button>
+  ) : (
+    <button
+      type="button"
+      onClick={ (event) => unFavorite(event) }
+      className="btn-icon"
+    >
+      <img
+        data-testid={ `${index}-horizontal-favorite-btn` }
+        className="favorite-button"
+        src={ blackHeartIcon }
+        alt="Desfavoritar"
+        name={ recipe.name }
+      />
+    </button>
+  ));
+
   return (
-    <Card style={ { width: '18rem' } } className="local-recipes-card">
+    <Card style={ { width: '280px' } } className="local-recipes-card mb-5 mx-3 text-dark">
       <Card.Img
         data-testid={ `${index}-horizontal-image` }
         variant="Top"
@@ -37,7 +80,7 @@ export default function LocalRecipesCard({ recipe, index, unFavorite, storageNam
         alt={ `${recipe.name}` }
         onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
       />
-      <Card.Body>
+      <Card.Body className="d-flex flex-column">
         <Card.Title
           data-testid={ `${index}-horizontal-name` }
           onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
@@ -77,55 +120,35 @@ export default function LocalRecipesCard({ recipe, index, unFavorite, storageNam
             </>
           ) : null
         }
-        <button type="button" onClick={ copyLink }>
-          <img
-            src={ shareIcon }
-            alt="share icon"
-            data-testid={ `${index}-horizontal-share-btn` }
-          />
-        </button>
-        {copiedLink ? <p>Link copied!</p> : null}
-        <button type="button" onClick={ (event) => unFavorite(event) }>
-          <img
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            className="favorite-button"
-            src={ blackHeartIcon }
-            alt="Desfavoritar"
-            name={ recipe.name }
-            style={ { width: '25px' } }
-          />
-        </button>
+        <div className="share-and-favorite-btns align-self-end position-relative">
+          <button type="button" onClick={ copyLink } className="btn-icon">
+            <img
+              src={ shareIcon }
+              alt="share icon"
+              data-testid={ `${index}-horizontal-share-btn` }
+            />
+          </button>
+          {
+            isFavorite ? renderUnfavoriteBtn() : (
+              <button
+                type="button"
+                className="btn-icon"
+                onClick={ () => {
+                  addFavoriteRecipe(recipe);
+                  setIsFavorite(true);
+                } }
+              >
+                <img
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ whiteHeartIcon }
+                  alt="favorite icon white"
+                />
+              </button>
+            )
+          }
+          {copiedLink ? <p className="copied position-absolute">Link copied!</p> : null}
+        </div>
       </Card.Body>
-      {/* <h1 data-testid={ `${index}-horizontal-top-text` }>
-        {
-          recipe.alcoholicOrNot === ''
-            ? `${recipe.nationality} - ${recipe.category}`
-            : `${recipe.alcoholicOrNot}`
-        }
-      </h1> */}
-      {/* <Link to={ `/${recipe.type}s/${recipe.id}` }>
-        <p data-testid={ `${index}-horizontal-name` }>
-          { recipe.name }
-        </p>
-      </Link> */}
-      {/* <button type="button" onClick={ copyLink }>
-        <img
-          src={ shareIcon }
-          alt="share icon"
-          data-testid={ `${index}-horizontal-share-btn` }
-        />
-      </button>
-      {copiedLink ? <p>Link copied!</p> : null}
-      <button type="button" onClick={ (event) => unFavorite(event) }>
-        <img
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          className="favorite-button"
-          src={ blackHeartIcon }
-          alt="Desfavoritar"
-          name={ recipe.name }
-          style={ { width: '25px' } }
-        />
-      </button> */}
     </Card>
   );
 }

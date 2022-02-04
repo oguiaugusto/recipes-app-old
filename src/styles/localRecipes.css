@@ -9,3 +9,18 @@
 .tags {
   font-size: 10px;
 }
+
+.local-recipes-card button img {
+  transition-duration: 100ms;
+  width: 26px;
+}
+
+.local-recipes-card button img:hover {
+  transform: scale(1.15);
+}
+
+.share-and-favorite-btns .copied {
+  right: 50%;
+  transform: translateX(50%);
+  width: 60px;
+}

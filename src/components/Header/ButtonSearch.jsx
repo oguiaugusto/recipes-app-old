@@ -5,6 +5,7 @@ export default function ButtonSearch({ boolean, setBoolean, icon }) {
   return (
     <button
       type="button"
+      className="btn-icon"
       onClick={ () => setBoolean(boolean) }
     >
       <img

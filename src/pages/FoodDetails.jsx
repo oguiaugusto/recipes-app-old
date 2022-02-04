@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useFetch from '../custom-hooks/useFetch';
-import { RecipeInfo, Recommendations } from '../components';
+import { Loader, RecipeInfo, Recommendations } from '../components';
 import { fetchMealDetails, fetchCocktails } from '../services/mealsAndCocktailsAPI';
 import { getDoneRecipes, getInProgressRecipes } from '../services/localStorage';
 import '../styles/details.css';
@@ -48,12 +48,14 @@ export default function FoodDetails() {
   ) : '';
 
   return (
-    <div>
+    <div className="recipe-details text-light d-flex flex-column">
       {loading ? (
-        <h1>Loading...</h1>
+        <Loader />
       ) : (
         <>
-          <img data-testid="recipe-photo" src={ meal.strMealThumb } alt="drink" />
+          <div className="recipe-photo">
+            <img data-testid="recipe-photo" src={ meal.strMealThumb } alt="meal" />
+          </div>
           <RecipeInfo
             title={ meal.strMeal }
             category={ meal.strCategory }
@@ -62,9 +64,9 @@ export default function FoodDetails() {
             id={ meal.idMeal }
             favObj={ favObj }
           />
-          <div className="recipe-video d-flex flex-column align-items-center">
-            <p className="recipe-info-title">Video</p>
-            <div className="iframe-container">
+          <div className="recipe-video d-flex flex-column align-items-center mb-4">
+            <h2 className="recipe-info-title">Video</h2>
+            <div className="iframe-container bg-dark">
               <iframe
                 data-testid="video"
                 width="560"
@@ -87,6 +89,7 @@ export default function FoodDetails() {
                   data-testid="start-recipe-btn"
                   type="button"
                   className="fixed-bottom"
+                  style={ { width: '100%' } }
                 >
                   {
                     getInProgressRecipes().meals[recipeId]

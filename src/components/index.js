@@ -8,6 +8,7 @@ import IngredientsCheckboxes from './IngredientsCheckboxes';
 import LocalRecipesList from './LocalRecipesList';
 import LocalRecipesCard from './LocalRecipesCard';
 import FilterBtns from './FilterBtns';
+import Loader from './Loader';
 
 export {
   Header,
@@ -20,4 +21,5 @@ export {
   LocalRecipesList,
   LocalRecipesCard,
   FilterBtns,
+  Loader,
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
-import { RecipeInfo, IngredientsCheckboxes } from '../components';
+import { RecipeInfo, IngredientsCheckboxes, Loader } from '../components';
 import useFetch from '../custom-hooks/useFetch';
 import { addDoneRecipe } from '../services/localStorage';
 import { fetchCocktailDetails } from '../services/mealsAndCocktailsAPI';
@@ -48,12 +48,14 @@ export default function DrinkInProgress() {
     />
   );
   return (
-    <div>
+    <div className="recipe-in-progress text-light d-flex flex-column mb-5">
       {loading ? (
-        <h1>Loading...</h1>
+        <Loader />
       ) : (
-        <div>
-          <img data-testid="recipe-photo" src={ drink.strDrinkThumb } alt="drink" />
+        <>
+          <div className="recipe-photo">
+            <img data-testid="recipe-photo" src={ drink.strDrinkThumb } alt="drink" />
+          </div>
           <RecipeInfo
             title={ drink.strDrink }
             category={ drink.strAlcoholic }
@@ -72,11 +74,12 @@ export default function DrinkInProgress() {
               className="fixed-bottom"
               onClick={ () => addDoneRecipe(doneObj) }
               disabled={ disableBtn }
+              style={ { width: '100%' } }
             >
               Finish Recipe
             </Button>
           </Link>
-        </div>
+        </>
       )}
     </div>
   );

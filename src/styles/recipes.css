@@ -1,0 +1,18 @@
+.categories button {
+  font-size: 11px;
+}
+
+.categories button:first-child {
+  border-radius: 0;
+}
+
+.categories button:last-child {
+  border-radius: 0;
+}
+
+@media screen and ( min-width : 460px ) {
+
+  .categories button {
+    font-size: 1rem;
+  }
+}
