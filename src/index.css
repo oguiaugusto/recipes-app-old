@@ -51,6 +51,12 @@ a {
   border: none;
 }
 
+.profile-abs {
+  left: 0px;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
 .header .radio-buttons {
   width: 100%;
 }

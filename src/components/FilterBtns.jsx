@@ -1,17 +1,16 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
+import { ButtonGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default function FilterBtns({ recipes, setFiltered }) {
+  const [activeBtn, setActiveBtn] = useState('all');
+
   const handleClick = (event) => {
     let { name } = event.target;
-    if (name === 'comida') {
-      name = 'food';
-    } else if (name === 'bebida') {
-      name = 'drink';
-    } else {
-      name = '';
-    }
+    setActiveBtn(name);
+
+    if (name === 'all') name = '';
+
     const getFavoriteRecipes = recipes.filter((recipe) => (
       recipe.type.includes(name)
     ));
@@ -19,11 +18,11 @@ export default function FilterBtns({ recipes, setFiltered }) {
   };
 
   return (
-    <div>
+    <ButtonGroup className="d-flex mb-5 ">
       <Button
         data-testid="filter-by-all-btn"
-        variant="dark"
-        name="comidas-bebidas"
+        variant={ activeBtn === 'all' ? 'light' : 'secondary' }
+        name="all"
         type="button"
         onClick={ handleClick }
       >
@@ -31,8 +30,8 @@ export default function FilterBtns({ recipes, setFiltered }) {
       </Button>
       <Button
         data-testid="filter-by-food-btn"
-        variant="dark"
-        name="comida"
+        variant={ activeBtn === 'food' ? 'light' : 'secondary' }
+        name="food"
         type="button"
         onClick={ handleClick }
       >
@@ -40,14 +39,14 @@ export default function FilterBtns({ recipes, setFiltered }) {
       </Button>
       <Button
         data-testid="filter-by-drink-btn"
-        variant="dark"
-        name="bebida"
+        variant={ activeBtn === 'drink' ? 'light' : 'secondary' }
+        name="drink"
         type="button"
         onClick={ handleClick }
       >
         Drinks
       </Button>
-    </div>
+    </ButtonGroup>
   );
 }
 

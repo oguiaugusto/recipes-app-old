@@ -29,7 +29,7 @@ function LocalRecipesList({
   }, [setFilteredRecipes, setRecipes, storageName]);
 
   return (
-    <div>
+    <div className="recipes-local-list d-flex flex-wrap justify-content-around">
       {
         recipes.map((recipe, index) => (
           <LocalRecipesCard

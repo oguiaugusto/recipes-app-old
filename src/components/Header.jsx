@@ -70,6 +70,11 @@ function fixTitle(string, separator = ' ') {
     .join(separator);
 }
 
+function setRecipesFoodsOrDrinks(pathname, setFoods, setDrinks, recipes) {
+  if (pathname.includes('/foods')) setFoods(recipes);
+  if (pathname.includes('/drinks')) setDrinks(recipes);
+}
+
 export default function Header() {
   const { location: { pathname } } = window;
   const { setFoods, setDrinks } = useContext(GeneralContext);
@@ -84,8 +89,7 @@ export default function Header() {
   const ALERT = 'Sorry, we haven\'t found any recipes for these filters.';
 
   useEffect(() => {
-    if (pathname.includes('/foods')) setFoods(recipes);
-    if (pathname.includes('/drinks')) setDrinks(recipes);
+    setRecipesFoodsOrDrinks(pathname, setFoods, setDrinks, recipes);
     setsearchValue('');
   }, [pathname, recipes, setDrinks, setFoods]);
 
@@ -112,11 +116,17 @@ export default function Header() {
       );
   }
 
+  const headerTopClass = checkPathname
+    ? 'header-top d-flex justify-content-between align-self-sm-center'
+    : 'header-top d-flex justify-content-center align-self-sm-center position-relative';
+  const profileBtnClass = checkPathname
+    ? 'btn-icon profile' : 'btn-icon profile-abs position-absolute';
+
   return (
     <header className="header px-3 py-2 d-flex flex-column">
-      <div className="header-top d-flex justify-content-between align-self-sm-center">
+      <div className={ headerTopClass }>
         <Link to="/profile">
-          <button type="button" className="btn-icon">
+          <button type="button" className={ profileBtnClass }>
             <img
               data-testid="profile-top-btn"
               src={ imageProfile }
@@ -154,29 +164,35 @@ export default function Header() {
           </InputGroup>
         )
           : null}
-        <div className="radio-buttons mt-3 d-flex justify-content-around mt-sm-2 mx-md-3">
-          <RadioFilter
-            Value="Ingredient"
-            setValue={ setTypeRadio }
-            typeRadio={ typeRadio }
-            name="search"
-            testid="ingredient-search-radio"
-          />
-          <RadioFilter
-            Value="Name"
-            setValue={ setTypeRadio }
-            typeRadio={ typeRadio }
-            name="search"
-            testid="name-search-radio"
-          />
-          <RadioFilter
-            Value="First Letter"
-            setValue={ setTypeRadio }
-            typeRadio={ typeRadio }
-            name="search"
-            testid="first-letter-search-radio"
-          />
-        </div>
+        {
+          checkPathname ? (
+            <div
+              className="radio-buttons mt-3 d-flex justify-content-around mt-sm-2 mx-md-3"
+            >
+              <RadioFilter
+                Value="Ingredient"
+                setValue={ setTypeRadio }
+                typeRadio={ typeRadio }
+                name="search"
+                testid="ingredient-search-radio"
+              />
+              <RadioFilter
+                Value="Name"
+                setValue={ setTypeRadio }
+                typeRadio={ typeRadio }
+                name="search"
+                testid="name-search-radio"
+              />
+              <RadioFilter
+                Value="First Letter"
+                setValue={ setTypeRadio }
+                typeRadio={ typeRadio }
+                name="search"
+                testid="first-letter-search-radio"
+              />
+            </div>
+          ) : null
+        }
       </div>
     </header>
   );
