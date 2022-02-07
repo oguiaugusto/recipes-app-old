@@ -19,65 +19,48 @@ import {
   fetchDrinkName,
   fetchDrinkLetter,
 } from '../services/mealsAndCocktailsAPI';
+import { fixTitle, setRecipesFoodsOrDrinks } from './Header/helperFunctions';
 
-function handleIsSearch(setFunc, type, pathname, valueSearch) {
+function handleIsSearch(setFunc, search, setGlobalLoading) {
+  const { typeRadio: type, pathname, searchValue: valueSearch } = search;
   const msgAlert = 'Your search must have only 1 (one) character';
+  setGlobalLoading(true);
 
   switch (type) {
   case 'Ingredient':
     if (pathname.includes('/foods')) {
       fetchFoodIngredient(valueSearch)
-        .then((data) => setFunc(data.meals));
+        .then((data) => { setFunc(data.meals); setGlobalLoading(false); });
     } else {
       fetchDrinkIngredient(valueSearch)
-        .then((data) => setFunc(data.drinks))
-        .catch(() => setFunc(null));
+        .then((data) => { setFunc(data.drinks); setGlobalLoading(false); })
+        .catch(() => { setFunc(null); setGlobalLoading(false); });
     }
     break;
   case 'Name':
     if (pathname.includes('/foods')) {
       fetchFoodName(valueSearch)
-        .then((data) => setFunc(data.meals));
+        .then((data) => { setFunc(data.meals); setGlobalLoading(false); });
     } else {
       fetchDrinkName(valueSearch)
-        .then((data) => setFunc(data.drinks))
-        .catch(() => setFunc(null));
+        .then((data) => { setFunc(data.drinks); setGlobalLoading(false); })
+        .catch(() => { setFunc(null); setGlobalLoading(false); });
     }
     break;
   case 'First Letter':
     if (valueSearch.length > 1) return global.alert(msgAlert);
     if (pathname.includes('/foods')) {
       fetchFoodLetter(valueSearch)
-        .then((data) => setFunc(data.meals));
+        .then((data) => { setFunc(data.meals); setGlobalLoading(false); });
     } else {
       fetchDrinkLetter(valueSearch)
-        .then((data) => setFunc(data.drinks))
-        .catch(() => setFunc(null));
+        .then((data) => { setFunc(data.drinks); setGlobalLoading(false); })
+        .catch(() => { setFunc(null); setGlobalLoading(false); });
     }
     break;
   default:
     break;
   }
-}
-
-function fixTitle(string, separator = ' ') {
-  string = string.split('/').join(' ').trim();
-
-  if (string.split(' ').length > 2) {
-    string = string.split(' ').filter((_e, i) => i !== 1).join(' ');
-  }
-
-  if (string.includes('-')) string = string.split('-').join(' ');
-
-  return string
-    .split(separator)
-    .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-    .join(separator);
-}
-
-function setRecipesFoodsOrDrinks(pathname, setFoods, setDrinks, recipes) {
-  if (pathname.includes('/foods')) setFoods(recipes);
-  if (pathname.includes('/drinks')) setDrinks(recipes);
 }
 
 function getConditionalClasses(checkPathname, smallerTitle, classType, pathname) {
@@ -111,7 +94,11 @@ function getConditionalClasses(checkPathname, smallerTitle, classType, pathname)
 
 export default function Header({ smallerTitle }) {
   const { location: { pathname } } = window;
-  const { setFoods, setDrinks } = useContext(GeneralContext);
+  const {
+    setFoods,
+    setDrinks,
+    setGlobalLoading,
+  } = useContext(GeneralContext);
 
   const [recipes, setRecipes] = useState([]);
   const [searchValue, setsearchValue] = useState('');
@@ -194,7 +181,9 @@ export default function Header({ smallerTitle }) {
               data-testid="exec-search-btn"
               disabled={ searchValue === '' || typeRadio === '' }
               onClick={ () => (
-                handleIsSearch(setRecipes, typeRadio, pathname, searchValue)
+                handleIsSearch(
+                  setRecipes, { typeRadio, pathname, searchValue }, setGlobalLoading,
+                )
               ) }
             >
               Search

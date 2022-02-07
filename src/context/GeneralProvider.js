@@ -18,6 +18,8 @@ export default function GeneralProvider({ children }) {
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
 
+  const [globalLoading, setGlobalLoading] = useState(false);
+
   const handleUser = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
@@ -46,6 +48,9 @@ export default function GeneralProvider({ children }) {
     setFoodCategories,
     drinkCategories,
     setDrinkCategories,
+
+    globalLoading,
+    setGlobalLoading,
   };
 
   return (
