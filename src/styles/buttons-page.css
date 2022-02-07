@@ -1,5 +1,8 @@
 .profile-email {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  max-width: 80%;
+  text-align: center;
+  word-break: break-all;
 }
 
 .buttons-page a {

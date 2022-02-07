@@ -8,7 +8,7 @@ function ReceitasFavoritas() {
 
   return (
     <div>
-      <Header title="Receitas Favoritas" />
+      <Header smallerTitle title="Receitas Favoritas" />
       <FilterBtns
         recipes={ favoriteRecipes }
         setFiltered={ setFilteredFavoriteRecipes }
