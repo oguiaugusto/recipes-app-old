@@ -1,4 +1,5 @@
 export function fixTitle(string, separator = ' ') {
+  string = string.split('recipes-app').join(' ').trim();
   string = string.split('/').join(' ').trim();
 
   if (string.split(' ').length > 2) {

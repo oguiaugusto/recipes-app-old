@@ -24,13 +24,13 @@ describe('69 - Redirecione a pessoa usuária ao clicar em um dos botões, a rota
     cy.visit('http://localhost:3000/explore');
 
     cy.get('[data-testid="explore-foods"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/explore/foods'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/explore/foods'));
   });
 
   it('O botão "Explore Drinks" deve direcionar para a página de explorar bebidas', () => {
     cy.visit('http://localhost:3000/explore');
 
     cy.get('[data-testid="explore-drinks"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/explore/drinks'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/explore/drinks'));
   });
 });

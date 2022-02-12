@@ -153,7 +153,7 @@ describe('22 - Redirecione a pessoa usuária para uma lista de cocktails ao clic
     cy.visit('http://localhost:3000/foods');
 
     cy.get('[data-testid="drinks-bottom-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/drinks'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/drinks'));
   });
 });
 
@@ -162,7 +162,7 @@ describe('23 - Redirecione a pessoa usuária para a tela de explorar ao clicar n
     cy.visit('http://localhost:3000/foods');
 
     cy.get('[data-testid="explore-bottom-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/explore'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/explore'));
   });
 });
 
@@ -171,6 +171,6 @@ describe('24 - Redirecione a pessoa usuárua para uma lista de comidas ao clicar
     cy.visit('http://localhost:3000/drinks');
 
     cy.get('[data-testid="food-bottom-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/foods'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/foods'));
   });
 });

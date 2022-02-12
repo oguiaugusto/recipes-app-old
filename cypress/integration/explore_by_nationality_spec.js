@@ -87,7 +87,7 @@ describe('79 - Desenvolva as mesmas especificações da tela de receitas princip
 
     cy.get('[data-testid="0-recipe-card"]').click();
 
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/foods/52977'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52977'));
   });
 });
 
@@ -124,6 +124,6 @@ describe('81 - Implemente a rota que deve ser apenas `/explore/foods/nationaliti
   it('Ao acessar a rota `/explore/drinks/nationalities` ela retorna um erro de "Not Found"', () => {
     cy.visit('http://localhost:3000/explore/drinks/nationalities');
 
-    cy.contains('Not Found');
+    cy.contains(/not found/i);
   });
 });

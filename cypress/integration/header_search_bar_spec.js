@@ -163,7 +163,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
     cy.get('[data-testid="search-input"]').type('Arrabiata');
     cy.get('[data-testid="exec-search-btn"]').click();
 
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/foods/52771'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52771'));
   });
 
   it('Caso apenas uma bebida seja encontrada, deve-se ir para sua rota de detalhes', () => {
@@ -178,7 +178,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
     cy.get('[data-testid="search-input"]').type('Aquamarine');
     cy.get('[data-testid="exec-search-btn"]').click();
 
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/drinks/178319'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/drinks/178319'));
   });
 });
 

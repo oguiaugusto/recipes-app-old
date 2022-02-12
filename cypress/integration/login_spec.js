@@ -137,7 +137,7 @@ describe('8 - Redirecione a pessoa usuária para a tela principal de receitas de
     cy.get('[data-testid="password-input"]').type('1234567');
     cy.get('[data-testid="login-submit-btn"]').click();
 
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/foods'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/foods'));
 
     cy.window().then((win) => {
       win.localStorage.clear();

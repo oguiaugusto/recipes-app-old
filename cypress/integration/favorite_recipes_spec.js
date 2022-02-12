@@ -161,13 +161,13 @@ describe('Favorite recipes screen', () => {
     it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="0-horizontal-image"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.eq('/foods/52771'));
+      cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52771'));
     });
 
     it('Ao clicar no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="1-horizontal-name"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.eq('/drinks/178319'));
+      cy.location().should((loc) => expect(loc.pathname).to.include('/drinks/178319'));
     });
   });
 });

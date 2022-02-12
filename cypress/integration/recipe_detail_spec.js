@@ -332,7 +332,7 @@ describe('41 - Redirecione a pessoa usuária caso o botão "Start Recipe" seja c
     });
 
     cy.get('[data-testid="start-recipe-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/foods/52771/in-progress'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52771/in-progress'));
   });
 
   it('Redireciona para tela de receita da bebida em progresso', () => {
@@ -343,7 +343,7 @@ describe('41 - Redirecione a pessoa usuária caso o botão "Start Recipe" seja c
     });
 
     cy.get('[data-testid="start-recipe-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/drinks/178319/in-progress'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/drinks/178319/in-progress'));
   });
 });
 

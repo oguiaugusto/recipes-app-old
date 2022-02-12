@@ -473,7 +473,7 @@ describe('53 - Redirecione a pessoa usuária após clicar no botão de finalizar
       .find('input[type="checkbox"]')
       .check();
     cy.get('[data-testid="finish-recipe-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/done-recipes'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/done-recipes'));
   });
 
   it('redireciona após concluir uma receita de bebida', () => {
@@ -487,6 +487,6 @@ describe('53 - Redirecione a pessoa usuária após clicar no botão de finalizar
       .find('input[type="checkbox"]')
       .check();
     cy.get('[data-testid="finish-recipe-btn"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/done-recipes'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/done-recipes'));
   });
 });

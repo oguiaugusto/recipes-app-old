@@ -43,14 +43,14 @@ describe('72 - Redirecione a pessoa usuária ao clicar em "By Ingredient", a rot
     cy.visit('http://localhost:3000/explore/foods');
 
     cy.get('[data-testid="explore-by-ingredient"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/explore/foods/ingredients'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/explore/foods/ingredients'));
   });
 
   it('Ao clicar no botão "Explore Drinks" da tela de explorar bebidas a rota muda para a página de explorar bebidas por ingrediente', () => {
     cy.visit('http://localhost:3000/explore/drinks');
 
     cy.get('[data-testid="explore-by-ingredient"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/explore/drinks/ingredients'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/explore/drinks/ingredients'));
   });
 });
 
@@ -59,7 +59,7 @@ describe('73 - Redirecione a pessoa usuária ao clicar em "By Nationality", a ro
     cy.visit('http://localhost:3000/explore/foods');
 
     cy.get('[data-testid="explore-by-nationality"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/explore/foods/nationalities'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/explore/foods/nationalities'));
   });
 });
 
@@ -72,7 +72,7 @@ describe('74 - Redirecione a pessoa usuária ao clicar em "Surprise me!", a rota
     });
 
     cy.get('[data-testid="explore-surprise"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/foods/52771'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52771'));
   });
 
   it('Ao clicar no botão "Surprise me!" da tela de explorar bebidas a rota muda para a página de detalhes de uma bebida aleatória', () => {
@@ -83,6 +83,6 @@ describe('74 - Redirecione a pessoa usuária ao clicar em "Surprise me!", a rota
     });
 
     cy.get('[data-testid="explore-surprise"]').click();
-    cy.location().should((loc) => expect(loc.pathname).to.eq('/drinks/178319'));
+    cy.location().should((loc) => expect(loc.pathname).to.include('/drinks/178319'));
   });
 });
