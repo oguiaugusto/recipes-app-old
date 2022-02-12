@@ -42,7 +42,13 @@ export default function Profile() {
             data-testid="profile-logout-btn"
             className="page-btns my-2"
             type="button"
-            onClick={ () => localStorage.clear() }
+            onClick={ () => {
+              localStorage.removeItem('user');
+              localStorage.removeItem('mealsToken');
+              localStorage.removeItem('cocktailsToken');
+              localStorage.removeItem('favoriteRecipes');
+              localStorage.removeItem('doneRecipes');
+            } }
           >
             Logout
           </Button>
