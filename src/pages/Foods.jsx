@@ -37,7 +37,7 @@ export default function Foods() {
   const setLoading = (bool) => { loading = bool; };
 
   return (
-    <div>
+    <div className="mb-5">
       <Header />
       {loading ? (
         <Loader />

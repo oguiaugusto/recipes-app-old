@@ -35,7 +35,7 @@ export default function Drinks() {
   const setLoading = (bool) => { loading = bool; };
 
   return (
-    <div>
+    <div className="mb-5">
       <Header />
       {loading ? (
         <Loader />
