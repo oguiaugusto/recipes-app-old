@@ -89,6 +89,24 @@ a {
 }
 
 
+.not-found-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+}
+
+.not-found-container {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.not-found-container .for-o-for {
+  font-size: 5rem;
+  margin-bottom: -10px;
+}
+
 @media screen and ( min-width: 576px ) {
 
   .header-top {

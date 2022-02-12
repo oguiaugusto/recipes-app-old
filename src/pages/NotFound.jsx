@@ -16,11 +16,14 @@ export default function NotFound() {
   }, [user]);
 
   return (
-    <div className="text-light text-center">
-      <h1 className="mb-1">Not Found</h1>
-      <Link to={ pathname }>
-        <p>{ `Please, click here ${pathToGo}` }</p>
-      </Link>
+    <div className="not-found-page text-light text-center">
+      <div className="not-found-container pb-2 px-4">
+        <h1 className="for-o-for">404</h1>
+        <p className="mb-0">Page not found</p>
+        <Link to={ pathname }>
+          <span>{ `Please, click here ${pathToGo}` }</span>
+        </Link>
+      </div>
     </div>
   );
 }
