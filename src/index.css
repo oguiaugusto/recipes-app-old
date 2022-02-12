@@ -80,6 +80,14 @@ a {
   width: 100vw;
 }
 
+.header-bottom {
+  animation: showSearchFields 300ms ease-in;
+}
+
+.header-bottom-close {
+  animation: hideSearchFields 300ms ease-out;
+}
+
 
 @media screen and ( min-width: 576px ) {
 
@@ -101,5 +109,28 @@ a {
 
   .header-bottom {
     width: 750px;
+  }
+}
+
+@keyframes showSearchFields {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+
+  to {
+    height: 89px;
+    opacity: 1;
+  }
+}
+
+@keyframes hideSearchFields {
+  from {
+    height: 89px;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
   }
 }

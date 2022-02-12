@@ -105,6 +105,8 @@ export default function Header({ smallerTitle }) {
   const [isInput, setIsInput] = useState(false);
   const [typeRadio, setTypeRadio] = useState('Ingredient');
 
+  const [headerBottomOpen, setHeaderBottomOpen] = useState(false);
+
   const [defaultFoods] = useFetch(fetchMeals);
   const [defaultDrinks] = useFetch(fetchCocktails);
   const ALERT = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -146,6 +148,7 @@ export default function Header({ smallerTitle }) {
   const titleClass = getConditionalClasses(
     checkPathname, smallerTitle, 'title', pathname,
   );
+  const hbClass = headerBottomOpen ? 'header-bottom' : 'header-bottom-close';
 
   return (
     <header className="header px-3 py-2 d-flex flex-column">
@@ -165,62 +168,67 @@ export default function Header({ smallerTitle }) {
           <ButtonSearch
             boolean={ !isInput }
             setBoolean={ setIsInput }
+            setHeaderBottomOpen={ setHeaderBottomOpen }
             icon={ imageSearch }
           />
         )
           : null}
       </div>
-      <div className="header-bottom d-sm-flex align-items-center align-self-sm-center">
-        {/* Faz aparecer o input de texto. isInput alterna entre true and false ao ser clicado. */}
-        {isInput ? (
-          <InputGroup className="mt-2 mt-sm-1">
-            <InputSearch handleChange={ setsearchValue } v={ searchValue } />
-            <Button
-              variant="warning"
-              type="button"
-              data-testid="exec-search-btn"
-              disabled={ searchValue === '' || typeRadio === '' }
-              onClick={ () => (
-                handleIsSearch(
-                  setRecipes, { typeRadio, pathname, searchValue }, setGlobalLoading,
-                )
-              ) }
-            >
-              Search
-            </Button>
-          </InputGroup>
-        )
-          : null}
-        {
-          checkPathname ? (
-            <div
-              className="radio-buttons mt-3 d-flex justify-content-around mt-sm-2 mx-md-3"
-            >
-              <RadioFilter
-                Value="Ingredient"
-                setValue={ setTypeRadio }
-                typeRadio={ typeRadio }
-                name="search"
-                testid="ingredient-search-radio"
-              />
-              <RadioFilter
-                Value="Name"
-                setValue={ setTypeRadio }
-                typeRadio={ typeRadio }
-                name="search"
-                testid="name-search-radio"
-              />
-              <RadioFilter
-                Value="First Letter"
-                setValue={ setTypeRadio }
-                typeRadio={ typeRadio }
-                name="search"
-                testid="first-letter-search-radio"
-              />
-            </div>
-          ) : null
-        }
-      </div>
+      {
+        isInput ? (
+          <div
+            className={ `${hbClass} d-sm-flex align-items-center align-self-sm-center` }
+          >
+            {/* Faz aparecer o input de texto. isInput alterna entre true and false ao ser clicado. */}
+            <InputGroup className="mt-2 mt-sm-1">
+              <InputSearch handleChange={ setsearchValue } v={ searchValue } />
+              <Button
+                variant="warning"
+                type="button"
+                data-testid="exec-search-btn"
+                disabled={ searchValue === '' || typeRadio === '' }
+                onClick={ () => (
+                  handleIsSearch(
+                    setRecipes, { typeRadio, pathname, searchValue }, setGlobalLoading,
+                  )
+                ) }
+              >
+                Search
+              </Button>
+            </InputGroup>
+            {
+              checkPathname ? (
+                <div
+                  className="
+                    radio-buttons mt-3 d-flex justify-content-around mt-sm-2 mx-md-3"
+                >
+                  <RadioFilter
+                    Value="Ingredient"
+                    setValue={ setTypeRadio }
+                    typeRadio={ typeRadio }
+                    name="search"
+                    testid="ingredient-search-radio"
+                  />
+                  <RadioFilter
+                    Value="Name"
+                    setValue={ setTypeRadio }
+                    typeRadio={ typeRadio }
+                    name="search"
+                    testid="name-search-radio"
+                  />
+                  <RadioFilter
+                    Value="First Letter"
+                    setValue={ setTypeRadio }
+                    typeRadio={ typeRadio }
+                    name="search"
+                    testid="first-letter-search-radio"
+                  />
+                </div>
+              ) : null
+            }
+          </div>
+        ) : null
+      }
     </header>
   );
 }
