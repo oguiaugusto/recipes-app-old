@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-export default function FilterBtns({ recipes, setFiltered }) {
+export default function FilterBtns({ recipes, setFiltered, setFilterName }) {
   const [activeBtn, setActiveBtn] = useState('all');
 
   const handleClick = (event) => {
@@ -14,6 +14,7 @@ export default function FilterBtns({ recipes, setFiltered }) {
     const getFavoriteRecipes = recipes.filter((recipe) => (
       recipe.type.includes(name)
     ));
+    setFilterName(name);
     setFiltered(getFavoriteRecipes);
   };
 
@@ -53,4 +54,5 @@ export default function FilterBtns({ recipes, setFiltered }) {
 FilterBtns.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.any).isRequired,
   setFiltered: PropTypes.func.isRequired,
+  setFilterName: PropTypes.func.isRequired,
 };

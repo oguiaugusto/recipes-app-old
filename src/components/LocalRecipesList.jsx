@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 import LocalRecipesCard from './LocalRecipesCard';
 
 function LocalRecipesList({
-  recipes, recipesList, storageName, setRecipes, setFilteredRecipes,
+  recipes, recipesList, filterName, storageName, setRecipes, setFilteredRecipes,
 }) {
   const unFavorite = (event) => {
     const { name } = event.target;
     const filteredRecipes = recipesList.filter((recipe) => (
       recipe.name !== name
     ));
-    localStorage.setItem(storageName, JSON.stringify(filteredRecipes));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipes));
     const recipesLocalStorage = JSON.parse(localStorage
-      .getItem(storageName));
-    setRecipes(recipesLocalStorage);
-    setFilteredRecipes(recipesLocalStorage);
+      .getItem('favoriteRecipes'));
+
+    if (storageName === 'favoriteRecipes') {
+      setRecipes(recipesLocalStorage);
+      setFilteredRecipes(recipesLocalStorage.filter((r) => r.type.includes(filterName)));
+    }
   };
 
   useEffect(() => {
@@ -48,6 +51,7 @@ function LocalRecipesList({
 LocalRecipesList.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.any).isRequired,
   recipesList: PropTypes.arrayOf(PropTypes.any).isRequired,
+  filterName: PropTypes.string.isRequired,
   storageName: PropTypes.string.isRequired,
   setRecipes: PropTypes.func.isRequired,
   setFilteredRecipes: PropTypes.func.isRequired,
