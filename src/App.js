@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
   return (
-    <HashRouter>
+    <HashRouter basename="/">
       <GeneralProvider>
         <Routes />
       </GeneralProvider>
