@@ -17,7 +17,7 @@ export default function ExploreFoods() {
 
   return (
     <div>
-      <Header smallerTitle />
+      <Header smallerTitle title="Explore Foods" />
       <div className={ buttonsPageClass }>
         <Link to="/explore/foods/ingredients">
           <Button

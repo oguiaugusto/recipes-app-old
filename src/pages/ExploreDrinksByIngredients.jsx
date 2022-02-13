@@ -30,7 +30,7 @@ export default function ExploreDrinksByIngredients() {
 
   return (
     <div>
-      <Header smallerTitle />
+      <Header smallerTitle title="Explore Ingredients" />
       {loading ? (
         <Loader />
       ) : (

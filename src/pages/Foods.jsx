@@ -38,7 +38,7 @@ export default function Foods() {
 
   return (
     <div className="mb-5">
-      <Header />
+      <Header title="Foods" />
       {loading ? (
         <Loader />
       ) : (

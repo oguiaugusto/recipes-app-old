@@ -17,7 +17,7 @@ export default function ExploreDrinks() {
 
   return (
     <div>
-      <Header smallerTitle />
+      <Header smallerTitle title="Explore Drinks" />
       <div className={ buttonsPageClass }>
         <Link to="/explore/drinks/ingredients">
           <Button

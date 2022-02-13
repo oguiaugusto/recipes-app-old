@@ -13,7 +13,7 @@ export default function Profile() {
 
   return (
     <div>
-      <Header />
+      <Header title="Profile" />
       <div className={ buttonsPageClass }>
         <p data-testid="profile-email" className="profile-email mb-1">{user.email}</p>
         <Link to="/done-recipes">
@@ -36,7 +36,7 @@ export default function Profile() {
             Favorite Recipes
           </Button>
         </Link>
-        <Link to="/">
+        <Link to="/#/recipes-app">
           <Button
             variant="outline-light"
             data-testid="profile-logout-btn"
@@ -47,6 +47,7 @@ export default function Profile() {
               localStorage.removeItem('mealsToken');
               localStorage.removeItem('cocktailsToken');
               localStorage.removeItem('favoriteRecipes');
+              localStorage.removeItem('inProgressRecipes');
               localStorage.removeItem('doneRecipes');
             } }
           >

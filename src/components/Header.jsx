@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { InputGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
 import ButtonSearch from './Header/ButtonSearch';
@@ -19,12 +19,14 @@ import {
   fetchDrinkName,
   fetchDrinkLetter,
 } from '../services/mealsAndCocktailsAPI';
-import { fixTitle, setRecipesFoodsOrDrinks } from './Header/helperFunctions';
+import { setRecipesFoodsOrDrinks } from './Header/helperFunctions';
 
 function handleIsSearch(setFunc, search, setGlobalLoading) {
   const { typeRadio: type, pathname, searchValue: valueSearch } = search;
   const msgAlert = 'Your search must have only 1 (one) character';
   setGlobalLoading(true);
+
+  console.log(pathname);
 
   switch (type) {
   case 'Ingredient':
@@ -63,7 +65,7 @@ function handleIsSearch(setFunc, search, setGlobalLoading) {
   }
 }
 
-function getConditionalClasses(checkPathname, smallerTitle, classType, pathname) {
+function getConditionalClasses(checkPathname, smallerTitle, classType, title) {
   let headerTopClass = checkPathname && !smallerTitle
     ? 'header-top d-flex justify-content-between align-self-sm-center'
     : 'header-top d-flex justify-content-center align-self-sm-center position-relative';
@@ -71,12 +73,12 @@ function getConditionalClasses(checkPathname, smallerTitle, classType, pathname)
     ? 'btn-icon profile' : 'btn-icon profile-abs position-absolute';
   let titleClass = smallerTitle ? 'smaller-title mb-0' : 'mb-0';
 
-  if (fixTitle(pathname) === 'Explore Nationalities') {
+  if (title === 'Explore Nationalities') {
     headerTopClass = 'header-top d-flex justify-content-between align-self-sm-center';
     profileBtnClass = 'btn-icon profile';
   }
 
-  if (fixTitle(pathname) === 'Explore Ingredients') {
+  if (title === 'Explore Ingredients') {
     titleClass = 'smaller-title mb-0 ms-3';
   }
 
@@ -92,8 +94,8 @@ function getConditionalClasses(checkPathname, smallerTitle, classType, pathname)
   }
 }
 
-export default function Header({ smallerTitle }) {
-  const { location: { pathname } } = window;
+export default function Header({ title, smallerTitle }) {
+  const { location: { pathname } } = useHistory();
   const {
     setFoods,
     setDrinks,
@@ -117,9 +119,9 @@ export default function Header({ smallerTitle }) {
   }, [pathname, recipes, setDrinks, setFoods]);
 
   const checkPathname = (
-    fixTitle(pathname) === 'Foods'
-    || fixTitle(pathname) === 'Explore Nationalities'
-    || fixTitle(pathname) === 'Drinks'
+    title === 'Foods'
+    || title === 'Explore Nationalities'
+    || title === 'Drinks'
   );
 
   if (recipes === null) {
@@ -140,13 +142,13 @@ export default function Header({ smallerTitle }) {
   }
 
   const headerTopClass = getConditionalClasses(
-    checkPathname, smallerTitle, 'header-top', pathname,
+    checkPathname, smallerTitle, 'header-top', title,
   );
   const profileBtnClass = getConditionalClasses(
-    checkPathname, smallerTitle, 'profile', pathname,
+    checkPathname, smallerTitle, 'profile', title,
   );
   const titleClass = getConditionalClasses(
-    checkPathname, smallerTitle, 'title', pathname,
+    checkPathname, smallerTitle, 'title', title,
   );
   const hbClass = headerBottomOpen ? 'header-bottom' : 'header-bottom-close';
 
@@ -162,7 +164,7 @@ export default function Header({ smallerTitle }) {
             />
           </button>
         </Link>
-        <h1 data-testid="page-title" className={ titleClass }>{fixTitle(pathname)}</h1>
+        <h1 data-testid="page-title" className={ titleClass }>{title}</h1>
         {/* checkPathname verifica o nome da rota. A depender da rota ela renderiza o button search */}
         {checkPathname ? (
           <ButtonSearch
@@ -234,6 +236,7 @@ export default function Header({ smallerTitle }) {
 }
 
 Header.propTypes = {
+  title: PropTypes.string.isRequired,
   smallerTitle: PropTypes.bool,
 };
 

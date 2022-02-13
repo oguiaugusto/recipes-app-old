@@ -9,7 +9,7 @@ export default function DoneRecipes() {
 
   return (
     <div className="local-recipes-list d-flex flex-column">
-      <Header smallerTitle title="Receitas Favoritas" />
+      <Header smallerTitle title="Done Recipes" />
       <FilterBtns
         recipes={ doneRecipes }
         setFiltered={ setFilteredDoneRecipes }

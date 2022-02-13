@@ -11,7 +11,7 @@ export default function Explore() {
 
   return (
     <div>
-      <Header />
+      <Header title="Explore" />
       <div className={ buttonsPageClass }>
         <Link to="explore/foods">
           <Button
