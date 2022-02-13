@@ -2,7 +2,7 @@
 
 describe('Profile screen', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/profile', {
+    cy.visit('http://localhost:3000/recipes-app#/profile', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', '{ "email": "email@mail.com" }');
         win.localStorage.setItem('mealsToken', '1');
@@ -46,14 +46,14 @@ describe('Profile screen', () => {
   describe('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Done Recipes", a rota deve mudar para a tela de receitas feitas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-done-btn"]').click();
-      cy.location().should((loc) => expect(loc.pathname).to.include('/done-recipes'));
+      cy.location().should((loc) => expect(loc.hash).to.include('/done-recipes'));
     });
   });
 
   describe('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Favorite Recipes", a rota deve mudar para a tela de receitas favoritas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-favorite-btn"]').click();
-      cy.location().should((loc) => expect(loc.pathname).to.include('/favorite-recipes'));
+      cy.location().should((loc) => expect(loc.hash).to.include('/favorite-recipes'));
     });
   });
 
@@ -83,7 +83,7 @@ describe('Profile screen', () => {
     it('A rota muda para a tela de login', () => {
       cy.get('[data-testid="profile-logout-btn"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.include('/recipes-app'));
+      cy.location().should((loc) => expect(loc.hash).to.include('/recipes-app'));
     });
   });
 });

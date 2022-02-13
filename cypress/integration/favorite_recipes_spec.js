@@ -23,7 +23,7 @@ describe('Favorite recipes screen', () => {
   ];
 
   beforeEach(() => {
-    cy.visit('http://localhost:3000/favorite-recipes', {
+    cy.visit('http://localhost:3000/recipes-app#/favorite-recipes', {
       onBeforeLoad(win) {
         win.localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
       
@@ -99,7 +99,7 @@ describe('Favorite recipes screen', () => {
     it('A URL da tela de detalhes da receita é copiada para o clipboard', () => {
       cy.get('[data-testid="0-horizontal-share-btn"]').click();
 
-      cy.get('@clipboard').should('be.calledWithExactly', `http://localhost:3000/foods/52771`); 
+      cy.get('@clipboard').should('be.calledWithExactly', `http://localhost:3000/recipes-app#/foods/52771`); 
     });
   });
 
@@ -161,13 +161,13 @@ describe('Favorite recipes screen', () => {
     it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="0-horizontal-image"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52771'));
+      cy.location().should((loc) => expect(loc.hash).to.include('/foods/52771'));
     });
 
     it('Ao clicar no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="1-horizontal-name"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.include('/drinks/178319'));
+      cy.location().should((loc) => expect(loc.hash).to.include('/drinks/178319'));
     });
   });
 });

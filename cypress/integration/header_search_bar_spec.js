@@ -6,7 +6,7 @@ const ginDrinks = require('../mocks/ginDrinks');
 
 describe('13 - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo', () => {
   it('Tem os data-testids tanto da barra de busca quanto de todos os radio-buttons', () => {
-    cy.visit('http://localhost:3000/foods');
+    cy.visit('http://localhost:3000/recipes-app#/foods');
 
     cy.get('[data-testid="search-top-btn"]').click();
 
@@ -20,7 +20,7 @@ describe('13 - Implemente os elementos da barra de busca respeitando os atributo
 
 describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio buttons: Ingredient, Name e First letter', () => {
   it('Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
       },
@@ -36,7 +36,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
   });
 
   it('Se o radio selecionado for Name, a busca na API é feita corretamente pelo nome', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
       },
@@ -52,7 +52,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
   });
 
   it('Se o radio selecionado for First letter, a busca na API é feita corretamente pelo primeira letra', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
       },
@@ -68,7 +68,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
   });
 
   it('Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         cy.spy(win, 'alert');
       },
@@ -86,7 +86,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
 
 describe('15 - Busque na API de comidas caso a pessoa esteja na página de comidas e na de bebidas caso esteja na de bebidas', () => {
   it('Na tela de bebidas, se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
       },
@@ -102,7 +102,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
   });
 
   it('Na tela de bebidas, se o radio selecionado for Name, a busca na API é feita corretamente pelo nome', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
       },
@@ -118,7 +118,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
   });
 
   it('Na tela de bebidas, se o radio selecionado for First letter, a busca na API é feita corretamente pelo primeira letra', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
       },
@@ -134,7 +134,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
   });
 
   it('Na tela de bebidas, se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         cy.spy(win, 'alert');
       },
@@ -152,7 +152,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
 
 describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma receita seja encontrada, com o ID da mesma na URL', () => {
   it('Caso apenas uma comida seja encontrada, deve-se ir para sua rota de detalhes', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
       },
@@ -163,11 +163,11 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
     cy.get('[data-testid="search-input"]').type('Arrabiata');
     cy.get('[data-testid="exec-search-btn"]').click();
 
-    cy.location().should((loc) => expect(loc.pathname).to.include('/foods/52771'));
+    cy.location().should((loc) => expect(loc.hash).to.include('/foods/52771'));
   });
 
   it('Caso apenas uma bebida seja encontrada, deve-se ir para sua rota de detalhes', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
       },
@@ -178,13 +178,13 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
     cy.get('[data-testid="search-input"]').type('Aquamarine');
     cy.get('[data-testid="exec-search-btn"]').click();
 
-    cy.location().should((loc) => expect(loc.pathname).to.include('/drinks/178319'));
+    cy.location().should((loc) => expect(loc.hash).to.include('/drinks/178319'));
   });
 });
 
 describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
   it('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
       },
@@ -211,7 +211,7 @@ describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontr
   });
 
   it('Caso mais de uma bebida seja encontrada, mostrar as 12 primeiras', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
       },
@@ -240,7 +240,7 @@ describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontr
 
 describe('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
   it('Caso nenhuma comida seja encontrada o alert deve ser exibido', () => {
-    cy.visit('http://localhost:3000/foods', {
+    cy.visit('http://localhost:3000/recipes-app#/foods', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
         cy.spy(win, 'alert');
@@ -258,7 +258,7 @@ describe('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
   });
 
   it('Caso nenhuma bebida seja encontrada o alert deve ser exibido', () => {
-    cy.visit('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/recipes-app#/drinks', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
         cy.spy(win, 'alert');

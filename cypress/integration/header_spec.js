@@ -2,7 +2,7 @@
 
 describe('9 - Implemente os elementos do header na tela principal de receitas, respeitando os atributos descritos no protótipo', () => {
   it('Tem os data-testids profile-top-btn, page-title e search-top-btn', () => {
-    cy.visit('http://localhost:3000/foods');
+    cy.visit('http://localhost:3000/recipes-app#/foods');
 
     cy.get('[data-testid="profile-top-btn"]');
     cy.get('[data-testid="page-title"]');
@@ -34,97 +34,97 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um ícon
   };
 
   it('Não tem header na tela de login', () => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('http://localhost:3000/recipes-app#/');
 
     hasNoHeader();
   });
 
   it('O header tem os ícones corretos na tela de principal de receitas de comidas', () => {
-    cy.visit('http://localhost:3000/foods');
+    cy.visit('http://localhost:3000/recipes-app#/foods');
 
     hasHeader('Foods');
   });
 
   it('O header tem os ícones corretos na tela de principal de receitas de bebidas', () => {
-    cy.visit('http://localhost:3000/drinks');
+    cy.visit('http://localhost:3000/recipes-app#/drinks');
 
     hasHeader('Drinks');
   });
 
   it('Não tem header na tela de detalhes de uma receita de comida', () => {
-    cy.visit('http://localhost:3000/foods/52771');
+    cy.visit('http://localhost:3000/recipes-app#/foods/52771');
 
     hasNoHeader();
   });
 
   it('Não tem header na tela de detalhes de uma receita de bebida', () => {
-    cy.visit('http://localhost:3000/drinks/178319');
+    cy.visit('http://localhost:3000/recipes-app#/drinks/178319');
 
     hasNoHeader();
   });
 
   it('Não tem header na tela de receita em progresso de comida', () => {
-    cy.visit('http://localhost:3000/foods/52771/in-progress');
+    cy.visit('http://localhost:3000/recipes-app#/foods/52771/in-progress');
 
     hasNoHeader();
   });
 
   it('Não tem header na tela de receita em progresso de bebida', () => {
-    cy.visit('http://localhost:3000/drinks/178319/in-progress');
+    cy.visit('http://localhost:3000/recipes-app#/drinks/178319/in-progress');
 
     hasNoHeader();
   });
 
   it('O header tem os ícones corretos na tela de explorar', () => {
-    cy.visit('http://localhost:3000/explore');
+    cy.visit('http://localhost:3000/recipes-app#/explore');
 
     hasHeader('Explore', false);
   });
 
   it('O header tem os ícones corretos na tela de explorar comidas', () => {
-    cy.visit('http://localhost:3000/explore/foods');
+    cy.visit('http://localhost:3000/recipes-app#/explore/foods');
 
     hasHeader('Explore Foods', false);
   });
 
   it('O header tem os ícones corretos na tela de explorar bebidas', () => {
-    cy.visit('http://localhost:3000/explore/drinks');
+    cy.visit('http://localhost:3000/recipes-app#/explore/drinks');
 
     hasHeader('Explore Drinks', false);
   });
 
   it('O header tem os ícones corretos na tela de explorar comidas por ingrediente', () => {
-    cy.visit('http://localhost:3000/explore/foods/ingredients');
+    cy.visit('http://localhost:3000/recipes-app#/explore/foods/ingredients');
 
     hasHeader('Explore Ingredients', false);
   });
 
   it('O header tem os ícones corretos na tela de explorar bebidas por ingrediente', () => {
-    cy.visit('http://localhost:3000/explore/drinks/ingredients');
+    cy.visit('http://localhost:3000/recipes-app#/explore/drinks/ingredients');
 
     hasHeader('Explore Ingredients', false);
   });
 
   it('O header tem os ícones corretos na tela de explorar comidas por nacionalidade', () => {
-    cy.visit('http://localhost:3000/explore/foods/nationalities');
+    cy.visit('http://localhost:3000/recipes-app#/explore/foods/nationalities');
 
     hasHeader('Explore Nationalities');
   });
 
   it('O header tem os ícones corretos na tela de perfil', () => {
-    cy.visit('http://localhost:3000/profile');
+    cy.visit('http://localhost:3000/recipes-app#/profile');
 
     hasHeader('Profile', false);
   });
 
   it('O header tem os ícones corretos na tela de receitas feitas', () => {
-    cy.visit('http://localhost:3000/done-recipes');
+    cy.visit('http://localhost:3000/recipes-app#/done-recipes');
 
     hasHeader('Done Recipes', false);
   });
 
   it('O header tem os ícones corretos na tela de receitas favoritas', () => {
-    cy.visit('http://localhost:3000/favorite-recipes');
+    cy.visit('http://localhost:3000/recipes-app#/favorite-recipes');
 
     hasHeader('Favorite Recipes', false);
   });
@@ -132,7 +132,7 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um ícon
 
 describe('11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil', () => {
   it('A mudança de tela ocorre corretamente', () => {
-    cy.visit('http://localhost:3000/foods');
+    cy.visit('http://localhost:3000/recipes-app#/foods');
 
     cy.get('[data-testid="page-title"]').contains('Foods');
 
@@ -144,7 +144,7 @@ describe('11 - Redirecione a pessoa usuária para a tela de perfil ao clicar no 
 
 describe('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer. O mesmo serve para escondê-la', () => {
   it('Ao clicar no botão de busca pela primeira vez a barra de busca aparece', () => {
-    cy.visit('http://localhost:3000/foods');
+    cy.visit('http://localhost:3000/recipes-app#/foods');
 
     cy.get('[data-testid="search-input"]').should('not.exist');
 
@@ -154,7 +154,7 @@ describe('12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busc
   });
 
   it('Ao clicar no botão de busca pela segunda vez a barra de busca desaparece', () => {
-    cy.visit('http://localhost:3000/foods');
+    cy.visit('http://localhost:3000/recipes-app#/foods');
 
     cy.get('[data-testid="search-top-btn"]').click();
     cy.get('[data-testid="search-input"]');
