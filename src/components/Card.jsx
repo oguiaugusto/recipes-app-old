@@ -12,7 +12,7 @@ export default function Card({
     <C
       data-testid={ cardTestId }
       style={ { width, cursor: 'pointer' } }
-      className="mb-5 mx-3 text-dark"
+      className="recipe-card mb-5 mx-3 text-dark"
       onClick={ () => (recipeUrl !== '' ? history.push(recipeUrl) : null) }
     >
       <C.Img data-testid={ imgTestId } variant="top" src={ thumb } />

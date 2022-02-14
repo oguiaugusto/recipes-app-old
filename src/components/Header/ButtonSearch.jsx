@@ -18,12 +18,12 @@ export default function ButtonSearch({ boolean, setBoolean, icon, setHeaderBotto
         }
       } }
     >
-      <AiOutlineSearch data-testid="search-top-btn" size={ 35 } src={ icon } />
-      {/* <img
+      <AiOutlineSearch
         data-testid="search-top-btn"
+        size={ 35 }
+        color="#eee"
         src={ icon }
-        alt="search"
-      /> */}
+      />
     </button>
   );
 }

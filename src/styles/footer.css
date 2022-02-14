@@ -1,4 +1,7 @@
 .footer {
+  background-color: #212529;
+  border-top: 1px solid #545c64;
   bottom: 0;
   position: fixed;
+  width: 100vw;
 }

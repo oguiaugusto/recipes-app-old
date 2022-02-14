@@ -42,7 +42,7 @@ export default function RecipeCategories({
     <ButtonGroup className="categories mb-5 flex-wrap">
       <Button
         data-testid="All-category-filter"
-        variant={ selectedCategory === 'All' ? 'light' : 'secondary' }
+        variant={ selectedCategory === 'All' ? 'secondary' : 'dark' }
         onClick={ () => {
           setRecipes(recipes);
           setSelectedCategory('All');
@@ -51,7 +51,7 @@ export default function RecipeCategories({
         All
       </Button>
       {categories.map(({ strCategory }, i) => {
-        const variant = strCategory === selectedCategory ? 'light' : 'secondary';
+        const variant = strCategory === selectedCategory ? 'secondary' : 'dark';
         return i < MAX_CATEGORY_NUMBER ? (
           <Button
             data-testid={ `${strCategory}-category-filter` }

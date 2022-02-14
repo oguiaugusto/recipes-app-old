@@ -15,7 +15,12 @@ export default function Footer() {
     >
       <Link to="/drinks">
         <button type="button" className="btn-icon">
-          <MdWineBar data-testid="drinks-bottom-btn" size={ 30 } src={ drinkIcon } />
+          <MdWineBar
+            data-testid="drinks-bottom-btn"
+            size={ 30 }
+            color="#eee"
+            src={ drinkIcon }
+          />
         </button>
       </Link>
       <Link to="/explore">
@@ -23,13 +28,19 @@ export default function Footer() {
           <MdOutlineExplore
             data-testid="explore-bottom-btn"
             size={ 30 }
+            color="#eee"
             src={ exploreIcon }
           />
         </button>
       </Link>
       <Link to="/foods">
         <button type="button" className="btn-icon">
-          <IoFastFoodOutline data-testid="food-bottom-btn" size={ 30 } src={ mealIcon } />
+          <IoFastFoodOutline
+            data-testid="food-bottom-btn"
+            size={ 30 }
+            color="#eee"
+            src={ mealIcon }
+          />
         </button>
       </Link>
     </footer>

@@ -10,6 +10,15 @@
   border-radius: 0;
 }
 
+@media screen and ( min-width : 460px ) and ( max-width : 624px ) {
+
+  .recipe-card {
+
+    /* stylelint-disable-next-line declaration-no-important */
+    width: 40% ! important;
+  }
+}
+
 @media screen and ( min-width : 460px ) {
 
   .categories button {

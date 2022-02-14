@@ -154,17 +154,14 @@ export default function Header({ title, smallerTitle }) {
   const hbClass = headerBottomOpen ? 'header-bottom' : 'header-bottom-close';
 
   return (
-    <header className="header px-3 py-2 d-flex flex-column">
+    <header className="header px-3 py-2 d-flex flex-column text-light">
       <div className={ headerTopClass }>
         <Link to="/profile">
-          <button
-            type="button"
-            className={ profileBtnClass }
-            style={ { padding: '0 11px' } }
-          >
+          <button type="button" className={ profileBtnClass }>
             <AiOutlineUser
               data-testid="profile-top-btn"
               size={ 35 }
+              color="#eee"
               src={ imageProfile }
             />
           </button>

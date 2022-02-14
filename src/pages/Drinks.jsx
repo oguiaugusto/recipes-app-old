@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Header, Footer, Card, RecipeCategories, Loader } from '../components';
 import GeneralContext from '../context/GeneralContext';
 import useFetch from '../custom-hooks/useFetch';
@@ -53,16 +52,16 @@ export default function Drinks() {
           <div className="recipes-list d-flex flex-wrap justify-content-around">
             {
               drinks.map((drink, i) => (i < MAX_CARD_NUMBER ? (
-                <Link key={ drink.idDrink } to={ `/drinks/${drink.idDrink}` }>
-                  <Card
-                    width="280px"
-                    thumb={ drink.strDrinkThumb }
-                    name={ drink.strDrink }
-                    cardTestId={ `${i}-recipe-card` }
-                    imgTestId={ `${i}-card-img` }
-                    titleTestId={ `${i}-card-name` }
-                  />
-                </Link>
+                <Card
+                  key={ drink.idDrink }
+                  width="280px"
+                  thumb={ drink.strDrinkThumb }
+                  name={ drink.strDrink }
+                  cardTestId={ `${i}-recipe-card` }
+                  imgTestId={ `${i}-card-img` }
+                  titleTestId={ `${i}-card-name` }
+                  recipeUrl={ `/drinks/${drink.idDrink}` }
+                />
               ) : null))
             }
           </div>

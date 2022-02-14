@@ -38,7 +38,8 @@ a {
 }
 
 .header {
-  background-color: #eee;
+  background-color: #212529;
+  border-bottom: 1px solid #545c64;
   width: 100vw;
 }
 
@@ -73,11 +74,6 @@ a {
 
 .header .form-check label {
   margin-top: 1px;
-}
-
-.footer {
-  background-color: #eee;
-  width: 100vw;
 }
 
 .header-bottom {
