@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { InputGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link, Redirect, useHistory } from 'react-router-dom';
+import { AiOutlineUser } from 'react-icons/ai';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
 import ButtonSearch from './Header/ButtonSearch';
@@ -156,16 +157,19 @@ export default function Header({ title, smallerTitle }) {
     <header className="header px-3 py-2 d-flex flex-column">
       <div className={ headerTopClass }>
         <Link to="/profile">
-          <button type="button" className={ profileBtnClass }>
-            <img
+          <button
+            type="button"
+            className={ profileBtnClass }
+            style={ { padding: '0 11px' } }
+          >
+            <AiOutlineUser
               data-testid="profile-top-btn"
+              size={ 35 }
               src={ imageProfile }
-              alt="profile"
             />
           </button>
         </Link>
         <h1 data-testid="page-title" className={ titleClass }>{title}</h1>
-        {/* checkPathname verifica o nome da rota. A depender da rota ela renderiza o button search */}
         {checkPathname ? (
           <ButtonSearch
             boolean={ !isInput }
@@ -181,7 +185,6 @@ export default function Header({ title, smallerTitle }) {
           <div
             className={ `${hbClass} d-sm-flex align-items-center align-self-sm-center` }
           >
-            {/* Faz aparecer o input de texto. isInput alterna entre true and false ao ser clicado. */}
             <InputGroup className="mt-2 mt-sm-1">
               <InputSearch handleChange={ setsearchValue } v={ searchValue } />
               <Button

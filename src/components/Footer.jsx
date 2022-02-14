@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IoFastFoodOutline } from 'react-icons/io5';
+import { MdOutlineExplore, MdWineBar } from 'react-icons/md';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -13,17 +15,21 @@ export default function Footer() {
     >
       <Link to="/drinks">
         <button type="button" className="btn-icon">
-          <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drinks icon" />
+          <MdWineBar data-testid="drinks-bottom-btn" size={ 30 } src={ drinkIcon } />
         </button>
       </Link>
       <Link to="/explore">
         <button type="button" className="btn-icon">
-          <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore icon" />
+          <MdOutlineExplore
+            data-testid="explore-bottom-btn"
+            size={ 30 }
+            src={ exploreIcon }
+          />
         </button>
       </Link>
       <Link to="/foods">
         <button type="button" className="btn-icon">
-          <img data-testid="food-bottom-btn" src={ mealIcon } alt="meal icon" />
+          <IoFastFoodOutline data-testid="food-bottom-btn" size={ 30 } src={ mealIcon } />
         </button>
       </Link>
     </footer>

@@ -88,7 +88,6 @@ a {
   animation: hideSearchFields 300ms ease-out;
 }
 
-
 .not-found-page {
   align-items: center;
   display: flex;
@@ -131,24 +130,42 @@ a {
 }
 
 @keyframes showSearchFields {
-  from {
+  0% {
     height: 0;
     opacity: 0;
   }
 
-  to {
+  50% {
+    opacity: 0;
+  }
+
+  100% {
     height: 89px;
     opacity: 1;
   }
 }
 
 @keyframes hideSearchFields {
-  from {
+  0% {
     height: 89px;
     opacity: 1;
   }
-  to {
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
     height: 0;
     opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

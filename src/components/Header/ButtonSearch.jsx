@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const THREE_HUNDRED = 300;
 
@@ -17,11 +18,12 @@ export default function ButtonSearch({ boolean, setBoolean, icon, setHeaderBotto
         }
       } }
     >
-      <img
+      <AiOutlineSearch data-testid="search-top-btn" size={ 35 } src={ icon } />
+      {/* <img
         data-testid="search-top-btn"
         src={ icon }
         alt="search"
-      />
+      /> */}
     </button>
   );
 }
