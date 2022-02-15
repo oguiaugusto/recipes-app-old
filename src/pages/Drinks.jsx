@@ -7,8 +7,6 @@ import {
   fetchCocktailsCategories,
 } from '../services/mealsAndCocktailsAPI';
 
-const MAX_CARD_NUMBER = 12;
-
 export default function Drinks() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const {
@@ -51,7 +49,7 @@ export default function Drinks() {
           />
           <div className="recipes-list d-flex flex-wrap justify-content-around">
             {
-              drinks.map((drink, i) => (i < MAX_CARD_NUMBER ? (
+              drinks.map((drink, i) => (
                 <Card
                   key={ drink.idDrink }
                   width="280px"
@@ -62,7 +60,7 @@ export default function Drinks() {
                   titleTestId={ `${i}-card-name` }
                   recipeUrl={ `/drinks/${drink.idDrink}` }
                 />
-              ) : null))
+              ))
             }
           </div>
         </div>

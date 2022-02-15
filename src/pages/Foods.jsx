@@ -8,8 +8,6 @@ import {
 } from '../services/mealsAndCocktailsAPI';
 import '../styles/recipes.css';
 
-const MAX_CARD_NUMBER = 12;
-
 export default function Foods() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const {
@@ -53,7 +51,7 @@ export default function Foods() {
           />
           <div className="recipes-list d-flex flex-wrap justify-content-around">
             {
-              foods.map((food, i) => (i < MAX_CARD_NUMBER ? (
+              foods.map((food, i) => (
                 <Card
                   key={ food.idMeal }
                   width="280px"
@@ -64,7 +62,7 @@ export default function Foods() {
                   titleTestId={ `${i}-card-name` }
                   recipeUrl={ `/foods/${food.idMeal}` }
                 />
-              ) : null))
+              ))
             }
           </div>
         </div>
