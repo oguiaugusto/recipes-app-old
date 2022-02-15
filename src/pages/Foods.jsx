@@ -19,8 +19,8 @@ export default function Foods() {
     globalLoading,
   } = useContext(GeneralContext);
 
-  const [foodResponse, Floading] = useFetch(fetchMeals);
-  const [categoriesR, Cloading] = useFetch(fetchMealsCategories);
+  const [foodResponse, foodLoading] = useFetch(fetchMeals);
+  const [categoriesR, categoriesLoading] = useFetch(fetchMealsCategories);
 
   useEffect(() => {
     setFoods(foodsIngredient !== null
@@ -30,7 +30,7 @@ export default function Foods() {
   useEffect(() => setFoodCategories(categoriesR.meals),
     [categoriesR, setFoodCategories]);
 
-  let loading = (Floading || Cloading || globalLoading);
+  let loading = (foodLoading || categoriesLoading || globalLoading);
   const setLoading = (bool) => { loading = bool; };
 
   return (

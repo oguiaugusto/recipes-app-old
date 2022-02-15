@@ -18,8 +18,8 @@ export default function Drinks() {
     globalLoading,
   } = useContext(GeneralContext);
 
-  const [drinksResponse, CtLoading] = useFetch(fetchCocktails);
-  const [categoriesR, Cloading] = useFetch(fetchCocktailsCategories);
+  const [drinksResponse, drinksLoading] = useFetch(fetchCocktails);
+  const [categoriesR, categoriesLoading] = useFetch(fetchCocktailsCategories);
 
   useEffect(() => {
     setDrinks(drinksIngredient.length ? drinksIngredient : drinksResponse.drinks);
@@ -28,7 +28,7 @@ export default function Drinks() {
   useEffect(() => setDrinkCategories(categoriesR.drinks),
     [categoriesR, setDrinkCategories]);
 
-  let loading = (CtLoading || Cloading || globalLoading);
+  let loading = (drinksLoading || categoriesLoading || globalLoading);
   const setLoading = (bool) => { loading = bool; };
 
   return (
