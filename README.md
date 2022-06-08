@@ -12,6 +12,8 @@ In it, we can search, filter, favorite and follow the progress of a recipe. The 
 
 The application is made for mobile layouts, although it can also be used on larger screens.
 
+### [Link to the website](https://oguiaugusto.github.io/recipes-app/#/)
+
 ---
 
 ## Used Technologies
